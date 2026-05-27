@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FAF8F5">
+  <title>MORELA Clínica Estética Vila-real | Extensiones de Pestañas y Nano Pigmentación</title>
+  <meta name="description" content="Clínica estética en Vila-real especializada en extensiones de pestañas, nano pigmentación y micropigmentación de labios. Reserva tu cita por WhatsApp.">
+  <meta name="keywords" content="clínica estética Vila-real, extensiones pestañas Vila-real, nano pigmentación Vila-real, micropigmentación labios Castellón, cejas Vila-real, láser corporal Vila-real, MORELA estética">
+  <meta name="author" content="MORELA Clínica Estética">
+  <link rel="canonical" href="https://morelaclinica.com">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://morelaclinica.com">
+  <meta property="og:title" content="MORELA Clínica Estética | Vila-real">
+  <meta property="og:description" content="Especialistas en extensiones de pestañas y nano pigmentación en Vila-real. Resultados naturales que enamoran.">
+  <meta property="og:locale" content="es_ES">
+  <meta name="geo.region" content="ES-VC">
+  <meta name="geo.placename" content="Vila-real, Castellón">
+  <meta name="geo.position" content="39.9400194;-0.0931756">
+  <meta name="ICBM" content="39.9400194, -0.0931756">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== VARIABLES ===================== */
+    :root {
+      --cream: #FAF8F5;
+      --beige: #E8E0D5;
+      --rose: #F0E8E2;
+      --dark: #1A1A18;
+      --gold: #C9A96E;
+      --gold-light: #D9BC8E;
+      --text: #2C2C2A;
+      --text-muted: #7A7670;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    @media (hover: none) { body { cursor: auto; } }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ===================== CUSTOM CURSOR ===================== */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s, height 0.25s, background 0.25s, opacity 0.25s;
+      mix-blend-mode: multiply;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      opacity: 0.6;
+      transition: width 0.35s, height 0.35s, opacity 0.35s;
+    }
+    #cursor.expanded { width: 16px; height: 16px; background: var(--gold-light); }
+    #cursor-ring.expanded { width: 56px; height: 56px; opacity: 0.4; }
+    @media (hover: none) { #cursor, #cursor-ring { display: none; } }
+
+    /* ===================== NAVBAR ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.5s ease;
+    }
+    nav.scrolled {
+      background: rgba(250, 248, 245, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.25);
+      padding: 1rem 4rem;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--dark);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn-nav {
+      background: var(--dark);
+      color: var(--cream) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+      font-size: 0.75rem !important;
+      letter-spacing: 0.1em;
+      transition: background 0.3s, color 0.3s !important;
+    }
+    .btn-nav::after { display: none !important; }
+    .btn-nav:hover { background: var(--gold) !important; color: var(--dark) !important; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--dark);
+      transition: all 0.3s;
+    }
+
+    /* ===================== HERO ===================== */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--cream) 0%, var(--beige) 100%);
+    }
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+      will-change: transform;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .hero-title .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .hero-title br + .char { display: inline-block; }
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.6s forwards;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.9s forwards;
+    }
+    .btn-primary {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 0.9rem 2.2rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--dark);
+      border-radius: 2px;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    .btn-outline {
+      background: transparent;
+      color: var(--dark);
+      padding: 0.9rem 2.2rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(26,26,24,0.3);
+      border-radius: 2px;
+      transition: border-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 2.5s forwards;
+    }
+    .scroll-indicator span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); }
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ===================== SECTION COMMON ===================== */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 300;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .gold-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 3.5rem;
+      transition: width 1s ease;
+    }
+    .gold-line.visible { width: 80px; }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===================== STATS ===================== */
+    #stats {
+      background: var(--dark);
+      padding: 4.5rem 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      position: relative;
+      max-width: 280px;
+    }
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--cream);
+      display: block;
+      line-height: 1;
+    }
+    .stat-suffix {
+      color: var(--gold);
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(250,248,245,0.45);
+      margin-top: 0.6rem;
+      font-weight: 300;
+    }
+
+    /* ===================== SERVICES ===================== */
+    #services { background: var(--cream); }
+    .services-header { max-width: 1200px; margin: 0 auto 4rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--beige);
+    }
+    .service-card {
+      background: var(--cream);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+    .service-card:hover::after { width: 100%; }
+    .service-card.large { grid-row: span 2; padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: flex-end; }
+    .service-card.large .service-icon { margin-bottom: auto; }
+    .service-icon {
+      width: 40px; height: 40px;
+      margin-bottom: 2rem;
+      color: var(--gold);
+    }
+    .service-icon svg { width: 100%; height: 100%; stroke: var(--gold); fill: none; stroke-width: 1; }
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 0.7rem;
+    }
+    .service-card.large .service-name { font-size: 2rem; margin-bottom: 1rem; }
+    .service-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+    .btn-service {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: letter-spacing 0.3s;
+    }
+    .btn-service:hover { letter-spacing: 0.25em; }
+
+    /* ===================== GALLERY ===================== */
+    #gallery { background: var(--rose); }
+    .gallery-header { max-width: 1200px; margin: 0 auto 3rem; }
+    .masonry-grid {
+      column-count: 3;
+      column-gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .masonry-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .masonry-item:hover img { transform: scale(1.05); }
+    .masonry-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26,26,24,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .masonry-item:hover .masonry-overlay { opacity: 1; }
+    .masonry-overlay span {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 3px;
+    }
+    .gallery-cta { text-align: center; }
+
+    /* ===================== REVIEWS MARQUEE ===================== */
+    #reviews {
+      background: var(--cream);
+      padding: 7rem 0;
+      overflow: hidden;
+    }
+    .reviews-header {
+      text-align: center;
+      padding: 0 4rem;
+      margin-bottom: 4rem;
+    }
+    .reviews-rating {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    .reviews-rating .stars { color: var(--gold); letter-spacing: 0.05em; }
+    .marquee-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      overflow: hidden;
+    }
+    .marquee-row {
+      display: flex;
+      gap: 1.2rem;
+      width: max-content;
+    }
+    .marquee-row.row1 { animation: marqueeLeft 40s linear infinite; }
+    .marquee-row.row2 { animation: marqueeRight 45s linear infinite; }
+    .marquee-wrapper:hover .marquee-row { animation-play-state: paused; }
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .review-pill {
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 60px;
+      padding: 1rem 1.8rem;
+      min-width: 260px;
+      max-width: 320px;
+      transition: all 0.4s ease;
+      cursor: default;
+      position: relative;
+    }
+    .review-pill:hover {
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      min-width: 320px;
+      max-width: 420px;
+      z-index: 10;
+    }
+    .pill-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+    .pill-name { font-size: 0.8rem; font-weight: 400; color: var(--dark); margin-bottom: 0.3rem; }
+    .pill-text { font-size: 0.76rem; color: var(--text-muted); line-height: 1.5; font-weight: 300; }
+    .reviews-footer { text-align: center; padding: 3rem 4rem 0; }
+
+    /* ===================== ABOUT ===================== */
+    #about { background: var(--beige); padding: 7rem 4rem; }
+    .about-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .about-image img { height: 100%; }
+    .about-image::before {
+      content: '';
+      position: absolute;
+      top: -20px; left: -20px;
+      right: 20px; bottom: 20px;
+      border: 1px solid rgba(201,169,110,0.3);
+      border-radius: 2px;
+      z-index: -1;
+    }
+    .about-content { }
+    .about-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+    .about-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+    .about-values {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .value-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+    }
+    .value-icon {
+      width: 36px; height: 36px;
+      color: var(--gold);
+    }
+    .value-icon svg { width: 100%; height: 100%; stroke: var(--gold); fill: none; stroke-width: 1.2; }
+    .value-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ===================== CONTACT / FOOTER ===================== */
+    #contact {
+      background: var(--dark);
+      padding: 8rem 4rem 5rem;
+      text-align: center;
+    }
+    .contact-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 3rem;
+    }
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 1.1rem 2.8rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.3s, transform 0.3s;
+      margin-bottom: 5rem;
+    }
+    .btn-whatsapp:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-whatsapp svg { width: 20px; height: 20px; fill: var(--dark); }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+    }
+    .contact-info-item {
+      text-align: left;
+    }
+    .info-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(250,248,245,0.35);
+      margin-bottom: 0.4rem;
+    }
+    .info-value {
+      font-size: 0.88rem;
+      color: var(--cream);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .info-value a { color: var(--gold); }
+    .map-container {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      border-radius: 4px;
+      overflow: hidden;
+      opacity: 0.85;
+    }
+    .map-container iframe { display: block; }
+    footer {
+      border-top: 1px solid rgba(250,248,245,0.1);
+      padding-top: 2.5rem;
+      color: rgba(250,248,245,0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+    footer a { color: var(--gold); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      section { padding: 5rem 2.5rem; }
+      nav { padding: 1.5rem 2.5rem; }
+      nav.scrolled { padding: 1rem 2.5rem; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card.large { grid-column: span 2; grid-row: span 1; }
+      .masonry-grid { column-count: 2; }
+      .about-grid { gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      nav.scrolled { padding: 0.9rem 1.5rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(250,248,245,0.97); backdrop-filter: blur(20px); padding: 2rem 1.5rem; gap: 1.5rem; border-bottom: 1px solid rgba(201,169,110,0.2); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      section { padding: 4rem 1.5rem; }
+      #stats { flex-direction: column; gap: 0; padding: 3rem 1.5rem; }
+      .stat-item { max-width: 100%; }
+      .stat-item + .stat-item::before { display: none; }
+      .stat-item { border-top: 1px solid rgba(201,169,110,0.15); }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.large { grid-column: auto; }
+      .masonry-grid { column-count: 2; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image { aspect-ratio: 4/3; }
+      .about-image::before { display: none; }
+      .contact-info { gap: 2rem; flex-direction: column; align-items: center; text-align: center; }
+      .contact-info-item { text-align: center; }
+      .about-values { flex-wrap: wrap; }
+      #contact { padding: 5rem 1.5rem 3rem; }
+    }
+
+    @media (max-width: 480px) {
+      .masonry-grid { column-count: 1; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">MORELA</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#gallery">Galería</a></li>
+    <li><a href="#reviews">Reseñas</a></li>
+    <li><a href="#contact">Contacto</a></li>
+    <li><a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-nav">Reservar cita</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero" role="banner">
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-content" id="heroContent">
+    <p class="hero-eyebrow">Clínica Estética · Vila-real</p>
+    <h1 class="hero-title" id="heroTitle" aria-label="Tu mejor versión, empieza aquí"></h1>
+    <p class="hero-subtitle">Nano pigmentación · Extensiones · Tratamientos</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar cita</a>
+      <a href="#services" class="btn-outline">Ver servicios</a>
+    </div>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats" role="region" aria-label="Estadísticas">
+  <div class="stat-item">
+    <span class="stat-number"><span class="counter" data-target="293">0</span><span class="stat-suffix">+</span></span>
+    <p class="stat-label">Publicaciones</p>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number"><span class="counter" data-target="2778">0</span></span>
+    <p class="stat-label">Seguidores</p>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number"><span class="counter" data-target="5">0</span><span class="stat-suffix">★</span></span>
+    <p class="stat-label">Valoración</p>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number"><span class="counter" data-target="16">0</span><span class="stat-suffix">+</span></span>
+    <p class="stat-label">Reseñas verificadas</p>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" role="region">
+  <div class="services-header reveal">
+    <span class="section-label">Tratamientos</span>
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="services-grid reveal">
+
+    <!-- Card grande 1 -->
+    <div class="service-card large">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 20 Q12 10 20 14 Q28 18 35 10" stroke-linecap="round"/>
+          <path d="M5 24 Q12 14 20 18 Q28 22 35 14" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="20" cy="26" r="5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 class="service-name">Extensiones de Pestañas</h3>
+        <p class="service-desc">Mirada natural que enamora. Técnicas adaptadas a tu morfología para un efecto deslumbrante y duradero.</p>
+        <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20pedir%20cita%20para%20extensiones%20de%20pesta%C3%B1as%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="service-card">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 18 Q14 10 20 12 Q26 14 32 18" stroke-linecap="round"/>
+          <path d="M10 22 Q16 16 20 17 Q24 18 30 22" stroke-linecap="round"/>
+          <line x1="20" y1="28" x2="20" y2="35"/>
+          <circle cx="20" cy="8" r="2" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Nano Pigmentación</h3>
+      <p class="service-desc">Cejas perfectas sin esfuerzo diario. El método más natural y preciso.</p>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20nano%20pigmentaci%C3%B3n%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="service-card">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 20 Q15 14 20 16 Q25 18 30 20 Q25 26 20 24 Q15 22 10 20Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 18 Q20 15 26 18" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Micropigmentación de Labios</h3>
+      <p class="service-desc">Color natural, resultados que enamoran. Perfilado permanente para una sonrisa perfecta.</p>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20micropigmentaci%C3%B3n%20de%20labios%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="service-card">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="16" r="10"/>
+          <path d="M13 26 Q20 32 27 26" stroke-linecap="round"/>
+          <circle cx="16" cy="14" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="24" cy="14" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Limpieza Facial</h3>
+      <p class="service-desc">Piel limpia, fresca y radiante. Tratamiento personalizado para tu tipo de piel.</p>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20limpieza%20facial%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="service-card">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8 L20 32" stroke-linecap="round" stroke-width="2"/>
+          <path d="M12 14 L28 14" stroke-linecap="round"/>
+          <path d="M10 20 L30 20" stroke-linecap="round"/>
+          <path d="M12 26 L28 26" stroke-linecap="round"/>
+          <circle cx="20" cy="8" r="3" fill="var(--gold)" stroke="none"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Láser Corporal</h3>
+      <p class="service-desc">Resultados visibles desde la primera sesión. Tecnología de última generación.</p>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20l%C3%A1ser%20corporal%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="service-card">
+      <div class="service-icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="20" cy="22" rx="12" ry="14"/>
+          <path d="M14 10 Q20 6 26 10" stroke-linecap="round"/>
+          <line x1="20" y1="10" x2="20" y2="8"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Tratamientos Corporales</h3>
+      <p class="service-desc">Cuida tu cuerpo, siéntete bien. Rituales de bienestar para tu equilibrio interior.</p>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20tratamientos%20corporales%20en%20MORELA%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" role="region">
+  <div class="gallery-header reveal">
+    <span class="section-label">Portafolio</span>
+    <h2 class="section-title">El trabajo habla por sí solo</h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="masonry-grid reveal">
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600" alt="Extensiones de pestañas en Vila-real - MORELA clínica estética" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600" alt="Tratamiento facial profesional - MORELA clínica estética" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600" alt="Beauty y bienestar en MORELA Vila-real" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600" alt="Maquillaje y estética profesional - MORELA" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600" alt="Spa y tratamientos de relajación - MORELA" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+    <div class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600" alt="Micropigmentación de cejas en Vila-real - MORELA" loading="lazy">
+      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
+        <span>Ver más</span>
+      </a>
+    </div>
+  </div>
+  <div class="gallery-cta reveal">
+    <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="btn-outline">Ver galería completa en Instagram</a>
+  </div>
+</section>
+
+<!-- REVIEWS MARQUEE -->
+<section id="reviews" role="region">
+  <div class="reviews-header reveal">
+    <span class="section-label">Clientas</span>
+    <h2 class="section-title">Lo que dicen nuestras clientas</h2>
+    <p class="reviews-rating"><span class="stars">★★★★★</span> 5.0 · 16 reseñas en Google</p>
+  </div>
+
+  <div class="marquee-wrapper">
+    <!-- FILA 1 -->
+    <div class="marquee-row row1" id="row1">
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Paula Beltrán</p>
+        <p class="pill-text">Paula es muy profesional en pestañas y cejas, me aconsejó lo mejor para mí</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Carmen Alapont</p>
+        <p class="pill-text">Te hace sentir cómoda, escuchada y cuidada desde el momento 0. Resultados espectaculares</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Roberto Soriano</p>
+        <p class="pill-text">El trato es excelente, muy profesional y cercano. Los resultados del láser han sido de 10</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Africa C</p>
+        <p class="pill-text">Local con buen ambiente, tranquilo y de total desconexión. Mis pestañas bien largas</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Cristina Cardosa</p>
+        <p class="pill-text">Te hagas el tratamiento que sea, saldrás súper contenta. Paula es toda una profesional</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Spina Lozana</p>
+        <p class="pill-text">Experiencia fabulosa. Muy profesional y agradable. Tratamientos con resultados óptimos</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Marina PS</p>
+        <p class="pill-text">Una gran profesional con variedad de servicios. Nunca defrauda</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Vanesa Cornejo Delgado</p>
+        <p class="pill-text">Un gabinete de estética de 10, super amable y en todo momento bien atendida</p>
+      </div>
+      <!-- duplicado para loop infinito -->
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Paula Beltrán</p>
+        <p class="pill-text">Paula es muy profesional en pestañas y cejas, me aconsejó lo mejor para mí</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Carmen Alapont</p>
+        <p class="pill-text">Te hace sentir cómoda, escuchada y cuidada desde el momento 0. Resultados espectaculares</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Roberto Soriano</p>
+        <p class="pill-text">El trato es excelente, muy profesional y cercano. Los resultados del láser han sido de 10</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Africa C</p>
+        <p class="pill-text">Local con buen ambiente, tranquilo y de total desconexión. Mis pestañas bien largas</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Cristina Cardosa</p>
+        <p class="pill-text">Te hagas el tratamiento que sea, saldrás súper contenta. Paula es toda una profesional</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Spina Lozana</p>
+        <p class="pill-text">Experiencia fabulosa. Muy profesional y agradable. Tratamientos con resultados óptimos</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Marina PS</p>
+        <p class="pill-text">Una gran profesional con variedad de servicios. Nunca defrauda</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Vanesa Cornejo Delgado</p>
+        <p class="pill-text">Un gabinete de estética de 10, super amable y en todo momento bien atendida</p>
+      </div>
+    </div>
+
+    <!-- FILA 2 -->
+    <div class="marquee-row row2" id="row2">
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Sonia Llarden</p>
+        <p class="pill-text">Paula sabe adaptarse a lo que cada clienta necesita. Salgo encantada siempre</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Laura Perez</p>
+        <p class="pill-text">Trato excelente, te hace sentir súper cómoda. Paula es un encanto y los resultados impresionantes</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Maria Gomez</p>
+        <p class="pill-text">La mejor estética y la mejor esteticien que hay, un 10 se le queda corto</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Begoña Lopez</p>
+        <p class="pill-text">Un trato excelente, muy profesional y muy agradable Paula, volveré</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Nerea Iglesias</p>
+        <p class="pill-text">Siempre me deja unas pestañas súper naturales y preciosas, y me aguantan un montón</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Raquel</p>
+        <p class="pill-text">Muy profesional y súper atenta</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Fina Docon</p>
+        <p class="pill-text">Encantadora</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Celia Barreda</p>
+        <p class="pill-text">Paula es una profesional excelente</p>
+      </div>
+      <!-- duplicado para loop infinito -->
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Sonia Llarden</p>
+        <p class="pill-text">Paula sabe adaptarse a lo que cada clienta necesita. Salgo encantada siempre</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Laura Perez</p>
+        <p class="pill-text">Trato excelente, te hace sentir súper cómoda. Paula es un encanto y los resultados impresionantes</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Maria Gomez</p>
+        <p class="pill-text">La mejor estética y la mejor esteticien que hay, un 10 se le queda corto</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Begoña Lopez</p>
+        <p class="pill-text">Un trato excelente, muy profesional y muy agradable Paula, volveré</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Nerea Iglesias</p>
+        <p class="pill-text">Siempre me deja unas pestañas súper naturales y preciosas, y me aguantan un montón</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Raquel</p>
+        <p class="pill-text">Muy profesional y súper atenta</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Fina Docon</p>
+        <p class="pill-text">Encantadora</p>
+      </div>
+      <div class="review-pill">
+        <div class="pill-stars">★★★★★</div>
+        <p class="pill-name">Celia Barreda</p>
+        <p class="pill-text">Paula es una profesional excelente</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-footer reveal">
+    <a href="https://www.google.es/maps/place/MORELA+cl%C3%ADnica+estetica/@39.9400234,-0.0980465,17z/data=!4m16!1m9!3m8!1s0xab82fe7fcd16d769:0x1c3a21fec6a0a871!2sMORELA+cl%C3%ADnica+estetica!8m2!3d39.9400194!4d-0.0931756!9m1!1b1!16s%2Fg%2F11xvz9752d!3m5!1s0xab82fe7fcd16d769:0x1c3a21fec6a0a871!8m2!3d39.9400194!4d-0.0931756!16s%2Fg%2F11xvz9752d?entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-outline">Leer todas en Google</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" role="region">
+  <div class="about-grid">
+    <div class="about-image reveal">
+      <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800" alt="Paula - Esteticista profesional de MORELA clínica estética Vila-real" fetchpriority="high">
+    </div>
+    <div class="about-content reveal">
+      <span class="section-label">Sobre mí</span>
+      <h2 class="about-title">Hola,<br>soy Paula</h2>
+      <div class="gold-line"></div>
+      <p class="about-text">Especialista en nano pigmentación y extensiones de pestañas con sede en Vila-real. Mi misión es realzar tu belleza natural con técnicas que marcan la diferencia y resultados que hablan por sí solos.</p>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18" cy="18" r="14"/>
+              <path d="M12 18 L16 22 L24 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="value-label">Precisión</span>
+        </div>
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 8 Q28 14 28 22 Q28 30 18 32 Q8 30 8 22 Q8 14 18 8Z"/>
+              <path d="M14 20 Q18 16 22 20" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="value-label">Naturalidad</span>
+        </div>
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6 L22 14 L31 15 L24 22 L26 31 L18 27 L10 31 L12 22 L5 15 L14 14 Z" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="value-label">Confianza</span>
+        </div>
+      </div>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20mi%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar mi cita</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<section id="contact" role="region">
+  <span class="contact-eyebrow reveal">Contacto</span>
+  <h2 class="contact-title reveal">¿Lista para transformar<br>tu mirada?</h2>
+  <div class="reveal">
+    <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-whatsapp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Reservar por WhatsApp
+    </a>
+  </div>
+
+  <div class="contact-info reveal">
+    <div class="contact-info-item">
+      <p class="info-label">Dirección</p>
+      <p class="info-value">Passatge Josep Pasqual Goterris Albiol, nº 12 (bajo)<br>Vila-real 12540, Castellón</p>
+    </div>
+    <div class="contact-info-item">
+      <p class="info-label">Horario</p>
+      <p class="info-value">Lunes a viernes 10:00 – 19:00<br>Sábado y domingo cerrado</p>
+    </div>
+    <div class="contact-info-item">
+      <p class="info-label">Teléfono</p>
+      <p class="info-value"><a href="tel:+34641579467">641 579 467</a></p>
+    </div>
+    <div class="contact-info-item">
+      <p class="info-label">Instagram</p>
+      <p class="info-value"><a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
+    </div>
+  </div>
+
+  <div class="map-container reveal">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3101.5!2d-0.0931756!3d39.9400194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xab82fe7fcd16d769%3A0x1c3a21fec6a0a871!2sMORELA%20cl%C3%ADnica%20estetica!5e0!3m2!1ses!2ses!4v1716000000000!5m2!1ses!2ses"
+      width="100%"
+      height="320"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Ubicación de MORELA clínica estética en Vila-real">
+    </iframe>
+  </div>
+
+  <footer>
+    <p>© 2026 MORELA clínica estética · Diseño web con amor · <a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
+  </footer>
+</section>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---- CURSOR ---- */
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursor-ring');
+  const isTouch = window.matchMedia('(hover: none)').matches;
+
+  if (!isTouch) {
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    (function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    document.querySelectorAll('a, button, .service-card, .masonry-item, .review-pill').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('expanded'); cursorRing.classList.add('expanded'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('expanded'); cursorRing.classList.remove('expanded'); });
+    });
+  }
+
+  /* ---- NAVBAR SCROLL ---- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ---- MOBILE NAV ---- */
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* ---- HERO PARTICLES (canvas) ---- */
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas, { passive: true });
+
+  function createParticles() {
+    particles = [];
+    const count = Math.min(20, Math.floor(window.innerWidth / 60));
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        ox: Math.random() * canvas.width,
+        oy: Math.random() * canvas.height,
+        speed: Math.random() * 0.004 + 0.002,
+        amplitude: Math.random() * 30 + 15,
+        phase: Math.random() * Math.PI * 2,
+        alpha: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+  createParticles();
+
+  let tick = 0;
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    tick += 0.5;
+    particles.forEach(p => {
+      p.x = p.ox + Math.sin(tick * p.speed + p.phase) * p.amplitude;
+      p.y = p.oy + Math.cos(tick * p.speed * 0.7 + p.phase) * p.amplitude * 0.6;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(201,169,110,${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  /* ---- HERO TITLE STAGGER ---- */
+  const heroTitleEl = document.getElementById('heroTitle');
+  const lines = ['Tu mejor versión,', 'empieza aquí'];
+  let charIndex = 0;
+
+  lines.forEach((line, li) => {
+    if (li > 0) {
+      const br = document.createElement('br');
+      heroTitleEl.appendChild(br);
+    }
+    line.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? ' ' : ch;
+      span.style.transitionDelay = (0.6 + charIndex * 0.04) + 's';
+      heroTitleEl.appendChild(span);
+      charIndex++;
+    });
+  });
+
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero-title .char').forEach(c => {
+      c.style.opacity = '1';
+      c.style.transform = 'translateY(0)';
+    });
+  });
+
+  /* ---- PARALLAX HERO ---- */
+  const heroContent = document.getElementById('heroContent');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    if (scrolled < window.innerHeight) {
+      heroContent.style.transform = `translateY(${scrolled * 0.35}px)`;
+    }
+  }, { passive: true });
+
+  /* ---- SCROLL REVEAL (IntersectionObserver) ---- */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const line = entry.target.querySelector('.gold-line');
+        if (line) line.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ---- GOLD LINE (also standalone) ---- */
+  const lineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.gold-line').forEach(el => lineObserver.observe(el));
+
+  /* ---- COUNTER ANIMATION ---- */
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.counter').forEach(c => {
+          if (!c.dataset.animated) {
+            c.dataset.animated = '1';
+            animateCounter(c);
+          }
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsEl = document.getElementById('stats');
+  if (statsEl) counterObserver.observe(statsEl);
+
+  /* ---- SECTION TRANSITION LINES ---- */
+  // handled by gold-line observer above
+
+})();
+</script>
+
+<!-- SCHEMA.ORG JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "name": "MORELA clínica estética",
+  "url": "https://morelaclinica.com",
+  "telephone": "+34641579467",
+  "image": "https://morelaclinica.com/og-image.jpg",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Passatge Josep Pasqual Goterris Albiol, nº 12 (bajo)",
+    "addressLocality": "Vila-real",
+    "addressRegion": "Castellón",
+    "postalCode": "12540",
+    "addressCountry": "ES"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.9400194,
+    "longitude": -0.0931756
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "10:00",
+      "closes": "19:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "16"
+  },
+  "sameAs": [
+    "https://www.instagram.com/paulabeautymorela"
+  ]
+}
+</script>
+
+</body>
+</html>
