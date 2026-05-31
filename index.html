@@ -563,6 +563,23 @@
       aspect-ratio: 3/4;
     }
     .about-image img { height: 100%; }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      min-height: 220px;
+      background: var(--beige);
+      border: 1.5px dashed rgba(201,169,110,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      color: var(--text-muted);
+      transition: background 0.3s;
+    }
+    .photo-placeholder:hover { background: var(--rose); }
+    .photo-placeholder svg { width: 32px; height: 32px; stroke: var(--gold); fill: none; stroke-width: 1; opacity: 0.7; }
+    .photo-placeholder span { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 300; text-align: center; padding: 0 1rem; }
+    .about-image .photo-placeholder { min-height: 100%; }
     .about-image::before {
       content: '';
       position: absolute;
@@ -783,7 +800,7 @@
     <p class="stat-label">Publicaciones</p>
   </div>
   <div class="stat-item">
-    <span class="stat-number"><span class="counter" data-target="2778">0</span></span>
+    <span class="stat-number">2.750<span class="stat-suffix">+</span></span>
     <p class="stat-label">Seguidores</p>
   </div>
   <div class="stat-item">
@@ -906,37 +923,37 @@
   </div>
   <div class="masonry-grid reveal">
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600" alt="Extensiones de pestañas en Vila-real - MORELA clínica estética" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
     </div>
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600" alt="Tratamiento facial profesional - MORELA clínica estética" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
     </div>
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600" alt="Beauty y bienestar en MORELA Vila-real" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
     </div>
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=600" alt="Maquillaje y estética profesional - MORELA" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
     </div>
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600" alt="Spa y tratamientos de relajación - MORELA" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
     </div>
     <div class="masonry-item">
-      <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600" alt="Micropigmentación de cejas en Vila-real - MORELA" loading="lazy">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
         <span>Ver más</span>
       </a>
@@ -1136,7 +1153,7 @@
 <section id="about" role="region">
   <div class="about-grid">
     <div class="about-image reveal">
-      <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800" alt="Paula - Esteticista profesional de MORELA clínica estética Vila-real" fetchpriority="high">
+      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
     </div>
     <div class="about-content reveal">
       <span class="section-label">Sobre mí</span>
