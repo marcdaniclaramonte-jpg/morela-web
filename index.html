@@ -715,6 +715,64 @@
       letter-spacing: 0.08em;
     }
     footer a { color: var(--gold); }
+    .footer-legal { margin-bottom: 0.8rem; }
+    .footer-legal a { transition: color 0.3s; }
+    .footer-legal a:hover { color: var(--gold-light); }
+
+    /* ===================== COOKIE BANNER ===================== */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2000;
+      background: rgba(26, 26, 24, 0.97);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(201, 169, 110, 0.35);
+      padding: 1.5rem 2rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+    }
+    #cookie-banner.show { display: flex; animation: cookieUp 0.5s ease forwards; }
+    @keyframes cookieUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .cookie-text {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(250, 248, 245, 0.85);
+      max-width: 640px;
+    }
+    .cookie-text a { color: var(--gold); border-bottom: 1px solid rgba(201,169,110,0.4); }
+    .cookie-text a:hover { color: var(--gold-light); }
+    .cookie-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .cookie-btn {
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.6rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      white-space: nowrap;
+    }
+    .cookie-btn.accept { background: var(--gold); color: var(--dark); border: 1px solid var(--gold); }
+    .cookie-btn.accept:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .cookie-btn.reject { background: transparent; color: var(--cream); border: 1px solid rgba(250,248,245,0.35); }
+    .cookie-btn.reject:hover { border-color: var(--gold); color: var(--gold); }
+    @media (max-width: 768px) {
+      #cookie-banner { flex-direction: column; gap: 1.2rem; padding: 1.3rem 1.5rem; text-align: center; }
+      .cookie-actions { width: 100%; justify-content: center; }
+      .cookie-btn { flex: 1; min-width: 130px; text-align: center; }
+    }
 
     /* ===================== RESPONSIVE ===================== */
 
@@ -906,6 +964,7 @@
     <li><a href="#services">Servicios</a></li>
     <li><a href="#gallery">Galería</a></li>
     <li><a href="#reviews">Reseñas</a></li>
+    <li><a href="/blog/">Blog</a></li>
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#contact">Contacto</a></li>
     <li><a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-nav">Reservar cita</a></li>
@@ -944,7 +1003,7 @@
     <p class="stat-label">Seguidores</p>
   </div>
   <div class="stat-item">
-    <span class="stat-number"><span class="counter" data-target="5">0</span><span class="stat-suffix">★</span></span>
+    <span class="stat-number">5.0<span class="stat-suffix">★</span></span>
     <p class="stat-label">Valoración</p>
   </div>
   <div class="stat-item">
@@ -1141,39 +1200,39 @@
   </div>
   <div class="masonry-grid reveal">
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="fotopestanas.jpeg" alt="Extensiones de pestañas realizadas en MORELA clínica estética en Vila-real" loading="lazy" width="800" height="1000">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Extensiones de pestañas</span>
       </a>
     </div>
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="cejaschica.jpeg" alt="Resultado de micropigmentación de cejas antes y después en Vila-real" loading="lazy" width="800" height="800">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Micropigmentación de cejas</span>
       </a>
     </div>
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="fotolabios.jpeg" alt="Micropigmentación de labios con acabado natural en MORELA Vila-real" loading="lazy" width="800" height="1000">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Micropigmentación de labios</span>
       </a>
     </div>
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="fotopeeling.jpeg" alt="Tratamiento facial con peeling y limpieza profunda en MORELA Vila-real" loading="lazy" width="800" height="1000">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Tratamientos faciales</span>
       </a>
     </div>
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="antesydespueschica.jpeg" alt="Resultado de diseño de cejas y pestañas en clienta de MORELA Vila-real" loading="lazy" width="640" height="800">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Cejas y pestañas</span>
       </a>
     </div>
     <div class="masonry-item">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="antesydespueschico.jpeg" alt="Diseño y perfilado de cejas masculinas antes y después en Vila-real" loading="lazy" width="800" height="1000">
       <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Ver más</span>
+        <span>Diseño de cejas</span>
       </a>
     </div>
   </div>
@@ -1371,7 +1430,7 @@
 <section id="about" role="region">
   <div class="about-grid">
     <div class="about-image reveal">
-      <div class="photo-placeholder"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="28" height="20" rx="2"/><circle cx="16" cy="17" r="5"/><path d="M11 7 L13 4 H19 L21 7" stroke-linejoin="round"/></svg><span>Añade la foto que más te guste</span></div>
+      <img src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1080" height="1620">
     </div>
     <div class="about-content reveal">
       <span class="section-label">Sobre mí</span>
@@ -1455,9 +1514,27 @@
   </div>
 
   <footer>
+    <p class="footer-legal">
+      <a href="/aviso-legal.html">Aviso Legal</a> ·
+      <a href="/politica-privacidad.html">Política de Privacidad</a> ·
+      <a href="/politica-privacidad.html#cookies">Política de Cookies</a>
+    </p>
     <p>© 2026 MORELA clínica estética · Diseño web con amor · <a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
   </footer>
 </section>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <p class="cookie-text">
+    Usamos cookies propias y de terceros para mejorar tu experiencia y analizar el tráfico de la web.
+    Puedes aceptarlas todas o rechazar las no esenciales. Más información en nuestra
+    <a href="/politica-privacidad.html#cookies">Política de Cookies</a>.
+  </p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn reject" id="cookieReject">Rechazar no esenciales</button>
+    <button type="button" class="cookie-btn accept" id="cookieAccept">Aceptar</button>
+  </div>
+</div>
 
 <!-- ===================== JAVASCRIPT ===================== -->
 <script>
@@ -1648,6 +1725,29 @@
 
   const statsEl = document.getElementById('stats');
   if (statsEl) counterObserver.observe(statsEl);
+
+  /* ---- COOKIE BANNER ---- */
+  const cookieBanner = document.getElementById('cookie-banner');
+  if (cookieBanner) {
+    const COOKIE_KEY = 'morela_cookie_consent';
+    let consent = null;
+    try { consent = localStorage.getItem(COOKIE_KEY); } catch (e) { consent = null; }
+
+    if (!consent) {
+      // Mostrar tras un breve instante en la primera visita
+      setTimeout(() => cookieBanner.classList.add('show'), 800);
+    }
+
+    function saveConsent(value) {
+      try { localStorage.setItem(COOKIE_KEY, value); } catch (e) {}
+      cookieBanner.classList.remove('show');
+    }
+
+    const acceptBtn = document.getElementById('cookieAccept');
+    const rejectBtn = document.getElementById('cookieReject');
+    if (acceptBtn) acceptBtn.addEventListener('click', () => saveConsent('accepted'));
+    if (rejectBtn) rejectBtn.addEventListener('click', () => saveConsent('rejected'));
+  }
 
   /* ---- MARQUEE TOUCH PAUSE ---- */
   if (isTouch) {

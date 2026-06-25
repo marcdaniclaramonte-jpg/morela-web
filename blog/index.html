@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FAF8F5">
+  <title>Blog de estética en Vila-real | MORELA Clínica Estética</title>
+  <meta name="description" content="Consejos sobre micropigmentación de cejas, extensiones de pestañas y depilación láser en Vila-real y Castellón. El blog de MORELA clínica estética.">
+  <meta name="keywords" content="blog estética Vila-real, micropigmentación cejas, extensiones pestañas, depilación láser Castellón, MORELA">
+  <meta name="author" content="MORELA Clínica Estética">
+  <link rel="canonical" href="https://morelaclinica.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://morelaclinica.com/blog/">
+  <meta property="og:title" content="Blog de estética en Vila-real | MORELA">
+  <meta property="og:description" content="Consejos reales sobre micropigmentación, pestañas y depilación láser en Vila-real y Castellón.">
+  <meta property="og:locale" content="es_ES">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF8F5;
+      --beige: #E8E0D5;
+      --rose: #F0E8E2;
+      --dark: #1A1A18;
+      --gold: #C9A96E;
+      --gold-light: #D9BC8E;
+      --text: #2C2C2A;
+      --text-muted: #7A7670;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--text); overflow-x: hidden; }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.1rem 4rem; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(250, 248, 245, 0.9);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.25);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.18em; color: var(--dark); }
+    .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .btn-nav { background: var(--dark); color: var(--cream) !important; padding: 0.6rem 1.4rem; border-radius: 2px; font-size: 0.75rem !important; transition: background 0.3s, color 0.3s; }
+    .btn-nav:hover { background: var(--gold) !important; color: var(--dark) !important; }
+
+    /* BLOG HEADER */
+    .blog-hero {
+      padding: 11rem 2rem 4rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--cream) 0%, var(--beige) 100%);
+    }
+    .blog-hero .label { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); font-weight: 300; display: block; margin-bottom: 1rem; }
+    .blog-hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 300; color: var(--dark); line-height: 1.1; margin-bottom: 1.2rem; }
+    .blog-hero p { max-width: 620px; margin: 0 auto; color: var(--text-muted); font-weight: 300; line-height: 1.8; font-size: 0.98rem; }
+
+    /* GRID */
+    .blog-grid {
+      max-width: 1180px; margin: 0 auto; padding: 4.5rem 2rem 6rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2rem;
+    }
+    .post-card {
+      background: #fff; border: 1px solid rgba(201,169,110,0.18); border-radius: 4px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .post-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); }
+    .post-thumb { aspect-ratio: 3/2; overflow: hidden; }
+    .post-thumb img { height: 100%; transition: transform 0.6s ease; }
+    .post-card:hover .post-thumb img { transform: scale(1.05); }
+    .post-body { padding: 1.8rem 1.6rem 2rem; display: flex; flex-direction: column; flex: 1; }
+    .post-cat { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .post-title { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; color: var(--dark); line-height: 1.25; margin-bottom: 0.9rem; }
+    .post-excerpt { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-bottom: 1.5rem; flex: 1; }
+    .post-link { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; align-self: flex-start; transition: letter-spacing 0.3s; }
+    .post-link:hover { letter-spacing: 0.22em; }
+
+    /* CTA STRIP */
+    .blog-cta { background: var(--dark); text-align: center; padding: 5rem 2rem; }
+    .blog-cta h2 { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 300; color: var(--cream); margin-bottom: 1.8rem; line-height: 1.15; }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 0.7rem; background: var(--gold); color: var(--dark);
+      padding: 1rem 2.4rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn-whatsapp:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-whatsapp svg { width: 18px; height: 18px; fill: var(--dark); }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(250,248,245,0.4); padding: 3rem 2rem; text-align: center; font-size: 0.72rem; letter-spacing: 0.08em; border-top: 1px solid rgba(250,248,245,0.08); }
+    footer a { color: var(--gold); }
+    .footer-legal { margin-bottom: 0.8rem; }
+
+    @media (max-width: 900px) { .blog-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links .hide-mobile { display: none; }
+      .blog-hero { padding: 9rem 1.5rem 3rem; }
+      .blog-grid { grid-template-columns: 1fr; padding: 3rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">MORELA</a>
+  <ul class="nav-links">
+    <li><a href="/#services" class="hide-mobile">Servicios</a></li>
+    <li><a href="/#gallery" class="hide-mobile">Galería</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-nav">Reservar cita</a></li>
+  </ul>
+</nav>
+
+<header class="blog-hero">
+  <span class="label">Blog · Vila-real</span>
+  <h1>Consejos de belleza<br>y estética</h1>
+  <p>Resolvemos tus dudas sobre micropigmentación, extensiones de pestañas, depilación láser y mucho más. Información real y útil del equipo de MORELA en Vila-real.</p>
+</header>
+
+<main class="blog-grid">
+
+  <article class="post-card">
+    <a href="/blog/micropigmentacion-cejas-vila-real.html" class="post-thumb">
+      <img src="../cejaschica.jpeg" alt="Resultado de micropigmentación de cejas en Vila-real" loading="lazy">
+    </a>
+    <div class="post-body">
+      <span class="post-cat">Micropigmentación</span>
+      <h2 class="post-title">Micropigmentación de cejas en Vila-real: qué esperar en tu primera sesión</h2>
+      <p class="post-excerpt">Te contamos paso a paso cómo es tu primera cita de micropigmentación de cejas: el diseño, la sensación, la duración y los cuidados posteriores.</p>
+      <a href="/blog/micropigmentacion-cejas-vila-real.html" class="post-link">Leer artículo</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <a href="/blog/extensiones-pestanas-vila-real.html" class="post-thumb">
+      <img src="../fotopestanas.jpeg" alt="Aplicación de extensiones de pestañas en Vila-real" loading="lazy">
+    </a>
+    <div class="post-body">
+      <span class="post-cat">Pestañas</span>
+      <h2 class="post-title">Extensiones de pestañas en Vila-real: tipos y cuál es mejor para ti</h2>
+      <p class="post-excerpt">Pelo a pelo, volumen ruso, híbridas... Te explicamos los principales tipos de extensiones de pestañas y cómo elegir la técnica ideal para tu mirada.</p>
+      <a href="/blog/extensiones-pestanas-vila-real.html" class="post-link">Leer artículo</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <a href="/blog/depilacion-laser-castellon.html" class="post-thumb">
+      <img src="../fotocara.jpeg" alt="Depilación láser en Castellón" loading="lazy">
+    </a>
+    <div class="post-body">
+      <span class="post-cat">Depilación láser</span>
+      <h2 class="post-title">Depilación láser en Castellón: preguntas frecuentes</h2>
+      <p class="post-excerpt">¿Duele? ¿Cuántas sesiones necesito? ¿Sirve para todo tipo de piel? Resolvemos las dudas más habituales sobre la depilación láser.</p>
+      <a href="/blog/depilacion-laser-castellon.html" class="post-link">Leer artículo</a>
+    </div>
+  </article>
+
+</main>
+
+<section class="blog-cta">
+  <h2>¿Lista para dar el paso?</h2>
+  <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-whatsapp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Escríbenos por WhatsApp
+  </a>
+</section>
+
+<footer>
+  <p class="footer-legal">
+    <a href="/aviso-legal.html">Aviso Legal</a> ·
+    <a href="/politica-privacidad.html">Política de Privacidad</a> ·
+    <a href="/politica-privacidad.html#cookies">Política de Cookies</a>
+  </p>
+  <p>© 2026 MORELA clínica estética · <a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
+</footer>
+
+</body>
+</html>
