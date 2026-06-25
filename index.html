@@ -406,8 +406,21 @@
     }
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
     .service-card:hover::after { width: 100%; }
-    .service-card.large { grid-row: span 2; padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: flex-end; }
+    .service-card.large { grid-row: span 2; padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: flex-end; min-height: 420px; }
     .service-card.large .service-icon { margin-bottom: auto; }
+    /* Tarjeta destacada con foto de pestañas de fondo */
+    .service-card.large {
+      background-image:
+        linear-gradient(to top, rgba(26,26,24,0.94) 0%, rgba(26,26,24,0.6) 45%, rgba(26,26,24,0.42) 100%),
+        url('fotocara.jpeg');
+      background-size: cover;
+      background-position: 50% 26%;
+    }
+    .service-card.large .service-name { color: var(--cream); }
+    .service-card.large .service-desc { color: rgba(250, 248, 245, 0.85); }
+    .service-card.large .service-icon svg { stroke: var(--gold-light); }
+    .service-card.large .btn-service { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+    .service-card.large:hover .service-name { color: #fff; }
     .service-icon {
       width: 40px; height: 40px;
       margin-bottom: 2rem;
