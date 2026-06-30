@@ -421,6 +421,23 @@
     .service-card.large .service-icon svg { stroke: var(--gold-light); }
     .service-card.large .btn-service { color: var(--gold-light); border-bottom-color: var(--gold-light); }
     .service-card.large:hover .service-name { color: #fff; }
+    /* Tarjeta con vídeo de fondo (Micropigmentación de cejas) */
+    .service-card.has-video { min-height: 360px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .service-card.has-video .service-icon { margin-bottom: auto; }
+    .card-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+    .service-card.has-video::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(26,26,24,0.94) 0%, rgba(26,26,24,0.6) 45%, rgba(26,26,24,0.42) 100%);
+    }
+    .service-card.has-video > *:not(.card-video) { position: relative; z-index: 2; }
+    .service-card.has-video .service-name { color: var(--cream); }
+    .service-card.has-video .service-desc { color: rgba(250, 248, 245, 0.85); }
+    .service-card.has-video .service-icon svg { stroke: var(--gold-light); }
+    .service-card.has-video .btn-service { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+    .service-card.has-video:hover .service-name { color: #fff; }
     .service-icon {
       width: 40px; height: 40px;
       margin-bottom: 2rem;
@@ -1051,7 +1068,10 @@
     </div>
 
     <!-- 2. Micropigmentación de cejas -->
-    <div class="service-card">
+    <div class="service-card has-video">
+      <video class="card-video" autoplay muted loop playsinline preload="metadata" poster="video-cejas-poster.jpg" aria-hidden="true">
+        <source src="video-cejas.mp4" type="video/mp4">
+      </video>
       <div class="service-icon" aria-hidden="true">
         <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 18 Q13 9 20 11 Q27 13 34 18" stroke-linecap="round" stroke-width="1.2"/>
