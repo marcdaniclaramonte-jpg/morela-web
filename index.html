@@ -21,6 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* ===================== VARIABLES ===================== */
     :root {
@@ -210,6 +211,17 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .hero-title br + .char { display: inline-block; }
+    .hero-byline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 2.4vw, 1.4rem);
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.45s forwards;
+    }
     .hero-subtitle {
       font-family: var(--font-body);
       font-size: 0.9rem;
@@ -381,13 +393,36 @@
     .services-header { max-width: 1200px; margin: 0 auto 4rem; }
     .services-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: auto auto;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5px;
       max-width: 1200px;
       margin: 0 auto;
       background: var(--beige);
     }
+    /* Categorías de servicios con lista de subservicios */
+    .service-card.category { min-height: 430px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .service-card.category .service-icon { margin-bottom: auto; }
+    .service-card.category .service-name { font-size: 1.8rem; margin-bottom: 1rem; }
+    .service-list { margin: 0 0 1.6rem; }
+    .service-list li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .service-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.65em;
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    .service-card.has-photo .service-list li,
+    .service-card.has-video .service-list li { color: rgba(250, 248, 245, 0.88); }
     .service-card {
       background: var(--cream);
       padding: 3rem 2.5rem;
@@ -406,22 +441,7 @@
     }
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
     .service-card:hover::after { width: 100%; }
-    .service-card.large { grid-row: span 2; padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: flex-end; min-height: 420px; }
-    .service-card.large .service-icon { margin-bottom: auto; }
-    /* Tarjeta destacada con foto de pestañas de fondo */
-    .service-card.large {
-      background-image:
-        linear-gradient(to top, rgba(26,26,24,0.94) 0%, rgba(26,26,24,0.6) 45%, rgba(26,26,24,0.42) 100%),
-        url('fotocara.jpeg');
-      background-size: cover;
-      background-position: 50% 26%;
-    }
-    .service-card.large .service-name { color: var(--cream); }
-    .service-card.large .service-desc { color: rgba(250, 248, 245, 0.85); }
-    .service-card.large .service-icon svg { stroke: var(--gold-light); }
-    .service-card.large .btn-service { color: var(--gold-light); border-bottom-color: var(--gold-light); }
-    .service-card.large:hover .service-name { color: #fff; }
-    /* Tarjeta con vídeo de fondo (Micropigmentación de cejas) */
+    /* Tarjeta con vídeo de fondo */
     .service-card.has-video { min-height: 360px; display: flex; flex-direction: column; justify-content: flex-end; }
     .service-card.has-video .service-icon { margin-bottom: auto; }
     .card-video {
@@ -468,7 +488,6 @@
       color: var(--dark);
       margin-bottom: 0.7rem;
     }
-    .service-card.large .service-name { font-size: 2rem; margin-bottom: 1rem; }
     .service-desc {
       font-size: 0.82rem;
       color: var(--text-muted);
@@ -493,20 +512,22 @@
     .gallery-header { max-width: 1200px; margin: 0 auto 3rem; }
     .masonry-grid {
       column-count: 3;
-      column-gap: 1rem;
+      column-gap: 1.2rem;
       max-width: 1200px;
       margin: 0 auto 3rem;
     }
     .masonry-item {
       break-inside: avoid;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       position: relative;
       overflow: hidden;
-      border-radius: 2px;
+      border-radius: 4px;
     }
     .masonry-item img {
       width: 100%;
       display: block;
+      aspect-ratio: 3/4;
+      object-fit: cover;
       transition: transform 0.6s ease;
     }
     .masonry-item:hover img { transform: scale(1.05); }
@@ -821,6 +842,100 @@
       .cookie-btn { flex: 1; min-width: 130px; text-align: center; }
     }
 
+    /* ===================== ABOUT MEDIA (foto o vídeo) ===================== */
+    .about-image .about-media {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-text p { margin-bottom: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ===================== NEWSLETTER ===================== */
+    .newsletter {
+      max-width: 640px;
+      margin: 0 auto 4rem;
+    }
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .newsletter-sub {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: rgba(250,248,245,0.55);
+      margin-bottom: 1.6rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.7rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .newsletter-form input {
+      flex: 1 1 180px;
+      background: rgba(250,248,245,0.06);
+      border: 1px solid rgba(201,169,110,0.35);
+      border-radius: 2px;
+      padding: 0.85rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--cream);
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .newsletter-form input::placeholder { color: rgba(250,248,245,0.4); }
+    .newsletter-form input:focus { border-color: var(--gold); background: rgba(250,248,245,0.1); }
+    .btn-newsletter {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: 2px;
+      padding: 0.85rem 1.8rem;
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-newsletter:hover { background: var(--gold-light); }
+    .btn-newsletter:disabled { opacity: 0.6; cursor: wait; }
+    .newsletter-msg {
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      min-height: 1.2em;
+    }
+    .newsletter-msg.error { color: #E8A9A0; }
+
+    /* ===================== WHATSAPP FLOTANTE ===================== */
+    .wa-float {
+      position: fixed;
+      bottom: 1.4rem; right: 1.4rem;
+      z-index: 1500;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(0,0,0,0.34); }
+    .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+    @media (max-width: 768px) {
+      .wa-float { width: 52px; height: 52px; bottom: 1.1rem; right: 1.1rem; }
+      .wa-float svg { width: 27px; height: 27px; }
+    }
+
     /* ===================== RESPONSIVE ===================== */
 
     /* --- iPad landscape / laptop pequeño (≤1024px) --- */
@@ -831,8 +946,7 @@
       nav { padding: 1.5rem 2.5rem; }
       nav.scrolled { padding: 1rem 2.5rem; }
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .service-card.large { grid-column: span 2; grid-row: span 1; padding: 2.5rem; }
-      .service-card.large .service-name { font-size: 1.6rem; }
+      .service-card.category { min-height: 400px; }
       .masonry-grid { column-count: 2; }
       .about-grid { gap: 3rem; }
       .about-image { aspect-ratio: 1/1; }
@@ -893,13 +1007,13 @@
 
       /* Servicios → 1 columna */
       .services-grid { grid-template-columns: 1fr; gap: 1px; }
-      .service-card.large { grid-column: auto; padding: 2.5rem 2rem; }
-      .service-card.large .service-name { font-size: 1.6rem; }
       .service-card { padding: 2rem 1.5rem; }
+      .service-card.category { min-height: 380px; }
+      .service-card.category .service-name { font-size: 1.55rem; }
 
       /* Galería → 2 columnas */
-      .masonry-grid { column-count: 2; column-gap: 0.6rem; }
-      .masonry-item { margin-bottom: 0.6rem; }
+      .masonry-grid { column-count: 2; column-gap: 0.8rem; }
+      .masonry-item { margin-bottom: 0.8rem; }
 
       /* About → 1 columna */
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -943,7 +1057,6 @@
 
       /* Servicios */
       .service-card { padding: 1.8rem 1.4rem; }
-      .service-card.large { padding: 2rem 1.4rem; }
       .service-icon { margin-bottom: 1.2rem; }
       .service-name { font-size: 1.2rem; }
       .service-desc { font-size: 0.8rem; }
@@ -1008,11 +1121,11 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">MORELA</a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Sobre mí</a></li>
     <li><a href="#services">Servicios</a></li>
     <li><a href="#gallery">Galería</a></li>
     <li><a href="#reviews">Reseñas</a></li>
     <li><a href="/blog/">Blog</a></li>
-    <li><a href="#about">Sobre mí</a></li>
     <li><a href="#contact">Contacto</a></li>
     <li><a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-nav">Reservar cita</a></li>
   </ul>
@@ -1027,6 +1140,7 @@
   <div class="hero-content" id="heroContent">
     <p class="hero-eyebrow">Clínica Estética · Vila-real</p>
     <h1 class="hero-title" id="heroTitle" aria-label="Tu mejor versión, empieza aquí"></h1>
+    <p class="hero-byline">by Paula Pastor · Castellón (al lado de Vila-real)</p>
     <p class="hero-subtitle">Nano pigmentación · Extensiones · Tratamientos</p>
     <div class="hero-ctas">
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar cita</a>
@@ -1036,6 +1150,65 @@
   <div class="scroll-indicator" aria-hidden="true">
     <span>Scroll</span>
     <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" role="region">
+  <div class="about-grid">
+    <div class="about-image reveal">
+      <!--
+        FOTO ⇄ VÍDEO: este contenedor acepta imagen o vídeo.
+        Para cambiar a vídeo, sustituye el <img> de abajo por:
+
+        <video class="about-media" autoplay muted loop playsinline preload="metadata" poster="fotopaula.jpeg">
+          <source src="video-sobre-mi.mp4" type="video/mp4">
+        </video>
+
+        (sube el vídeo a la raíz del proyecto con el nombre video-sobre-mi.mp4;
+        el poster puede seguir siendo la foto actual)
+      -->
+      <img class="about-media" src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1080" height="1620">
+    </div>
+    <div class="about-content reveal">
+      <span class="section-label">Sobre mí</span>
+      <h2 class="about-title">Paula Pastor</h2>
+      <div class="gold-line"></div>
+      <div class="about-text">
+        <p>Hola, soy Paula, una apasionada de la belleza dedicada a transformar miradas a través de la nano pigmentación y las extensiones de pestañas, junto al cuidado de la piel y el cuerpo en una experiencia rejuvenecedora.</p>
+        <p>Mi misión es resaltar tu belleza natural con técnicas que marcan la diferencia y resultados que hablan por sí solos.</p>
+        <p>¿Estás lista para conseguir tu mejor versión?</p>
+      </div>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="18" cy="18" r="14"/>
+              <path d="M12 18 L16 22 L24 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="value-label">Precisión</span>
+        </div>
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 8 Q28 14 28 22 Q28 30 18 32 Q8 30 8 22 Q8 14 18 8Z"/>
+              <path d="M14 20 Q18 16 22 20" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="value-label">Naturalidad</span>
+        </div>
+        <div class="value-item">
+          <div class="value-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6 L22 14 L31 15 L24 22 L26 31 L18 27 L10 31 L12 22 L5 15 L14 14 Z" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="value-label">Confianza</span>
+        </div>
+      </div>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20mi%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar mi cita</a>
+    </div>
   </div>
 </section>
 
@@ -1068,8 +1241,11 @@
   </div>
   <div class="services-grid reveal">
 
-    <!-- 1. Grande — Extensiones de pestañas -->
-    <div class="service-card large">
+    <!-- 1. MIRADA -->
+    <div class="service-card category has-video">
+      <video class="card-video" autoplay muted loop playsinline preload="metadata" poster="video-lifting-poster.jpg" aria-hidden="true">
+        <source src="video-lifting.mp4" type="video/mp4">
+      </video>
       <div class="service-icon" aria-hidden="true">
         <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
           <path d="M5 20 Q12 10 20 14 Q28 18 35 10" stroke-linecap="round"/>
@@ -1077,15 +1253,17 @@
           <circle cx="20" cy="27" r="5"/>
         </svg>
       </div>
-      <div>
-        <h3 class="service-name">Extensiones de Pestañas</h3>
-        <p class="service-desc">Mirada natural que enamora. Técnicas adaptadas a tu morfología para un efecto deslumbrante y duradero.</p>
-        <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20extensiones%20de%20pesta%C3%B1as%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-      </div>
+      <h3 class="service-name">Mirada</h3>
+      <ul class="service-list">
+        <li>Lifting de pestañas</li>
+        <li>Extensiones de pestañas</li>
+        <li>Laminado</li>
+      </ul>
+      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20extensiones%20de%20pesta%C3%B1as%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
     </div>
 
-    <!-- 2. Micropigmentación de cejas -->
-    <div class="service-card has-video">
+    <!-- 2. MICROPIGMENTACIÓN -->
+    <div class="service-card category has-video">
       <video class="card-video" autoplay muted loop playsinline preload="metadata" poster="video-cejas-poster.jpg" aria-hidden="true">
         <source src="video-cejas.mp4" type="video/mp4">
       </video>
@@ -1097,91 +1275,20 @@
           <circle cx="20" cy="7" r="2.5" fill="var(--gold)" stroke="none"/>
         </svg>
       </div>
-      <h3 class="service-name">Micropigmentación de Cejas</h3>
-      <p class="service-desc">Cejas perfectas que enmarcan tu mirada. Técnica semipermanente de precisión para un resultado 100% natural.</p>
+      <h3 class="service-name">Micropigmentación</h3>
+      <ul class="service-list">
+        <li>Micropigmentación de cejas</li>
+        <li>Microblading</li>
+        <li>Nano pigmentación de cejas</li>
+        <li>Micropigmentación de labios</li>
+        <li>Micropigmentación de ojos</li>
+      </ul>
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20micropigmentaci%C3%B3n%20de%20cejas%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
     </div>
 
-    <!-- 3. Microblading -->
-    <div class="service-card has-photo">
-      <img class="card-media" src="microblading.jpg" alt="Resultado de microblading de cejas en MORELA clínica estética, Vila-real" loading="lazy" aria-hidden="true">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 30 L28 10" stroke-linecap="round" stroke-width="1.4"/>
-          <path d="M28 10 L32 8 L30 12 Z" stroke-linejoin="round" fill="var(--gold)" stroke="none"/>
-          <path d="M10 22 Q17 16 24 18" stroke-linecap="round" opacity="0.5"/>
-          <path d="M12 26 Q19 20 26 22" stroke-linecap="round" opacity="0.3"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Microblading</h3>
-      <p class="service-desc">Cejas perfectas trazo a trazo. Técnica manual semipermanente para un acabado ultra realista y natural.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20microblading%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 4. Micropigmentación de labios -->
-    <div class="service-card has-photo">
-      <img class="card-media" src="micropigmentacion-labios.jpg" alt="Resultado de micropigmentación de labios en MORELA clínica estética, Vila-real" loading="lazy" aria-hidden="true">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 20 Q14 12 20 15 Q26 12 32 20 Q26 28 20 25 Q14 28 8 20Z" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M14 17 Q20 14 26 17" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Micropigmentación de Labios</h3>
-      <p class="service-desc">Color y definición sin retoques diarios. Perfilado semipermanente para una sonrisa perfecta todo el día.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20micropigmentaci%C3%B3n%20de%20labios%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 5. Micropigmentación de ojos -->
-    <div class="service-card has-photo">
-      <img class="card-media" src="micropigmentacion-ojos.jpg" alt="Resultado de micropigmentación de ojos (delineado semipermanente) en MORELA, Vila-real" loading="lazy" aria-hidden="true">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 20 Q12 11 20 11 Q28 11 35 20 Q28 29 20 29 Q12 29 5 20Z" stroke-linejoin="round"/>
-          <circle cx="20" cy="20" r="5"/>
-          <circle cx="22" cy="18" r="1.5" fill="var(--gold)" stroke="none"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Micropigmentación de Ojos</h3>
-      <p class="service-desc">Mirada intensa y definida desde que te despiertas. Delineado semipermanente adaptado a tu estilo.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20micropigmentaci%C3%B3n%20de%20ojos%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 6. Aumentos labiales -->
-    <div class="service-card">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 20 Q13 12 20 14 Q27 12 33 20 Q27 28 20 26 Q13 28 7 20Z" stroke-linejoin="round"/>
-          <path d="M13 16 Q20 13 27 16" stroke-linecap="round" opacity="0.45"/>
-          <path d="M20 14 L20 10 M17 11 L20 8 L23 11" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Aumentos Labiales</h3>
-      <p class="service-desc">Labios más voluminosos y naturales. Resultados inmediatos con técnicas seguras adaptadas a tu morfología.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20aumentos%20labiales%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 7. Depilación láser -->
-    <div class="service-card">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="14" r="5"/>
-          <line x1="20" y1="19" x2="20" y2="34" stroke-linecap="round" stroke-width="1.5"/>
-          <line x1="20" y1="14" x2="10" y2="26" stroke-linecap="round" opacity="0.4"/>
-          <line x1="20" y1="14" x2="30" y2="26" stroke-linecap="round" opacity="0.4"/>
-          <line x1="20" y1="6" x2="20" y2="4" stroke-linecap="round" stroke-width="1.5"/>
-          <line x1="14" y1="8" x2="13" y2="6" stroke-linecap="round" opacity="0.6"/>
-          <line x1="26" y1="8" x2="27" y2="6" stroke-linecap="round" opacity="0.6"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Depilación Láser</h3>
-      <p class="service-desc">Olvídate del vello para siempre. Tecnología de última generación para una piel suave y sin esfuerzo diario.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20depilaci%C3%B3n%20l%C3%A1ser%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 8. Tratamientos faciales -->
-    <div class="service-card has-photo">
-      <img class="card-media" src="tratamientos-faciales.jpg" alt="Resultado de tratamiento facial con piel luminosa en MORELA clínica estética, Vila-real" loading="lazy" aria-hidden="true" style="object-position: 40% 45%;">
+    <!-- 3. TRATAMIENTOS FACIALES -->
+    <div class="service-card category has-photo">
+      <img class="card-media" src="tratamientos-faciales.jpg" alt="Tratamiento facial con piel luminosa en MORELA clínica estética, Vila-real" loading="lazy" aria-hidden="true" style="object-position: 40% 45%;">
       <div class="service-icon" aria-hidden="true">
         <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
           <circle cx="20" cy="18" r="11"/>
@@ -1192,46 +1299,17 @@
         </svg>
       </div>
       <h3 class="service-name">Tratamientos Faciales</h3>
-      <p class="service-desc">Piel luminosa y saludable. Protocolos faciales adaptados a cada tipo de piel para resultados visibles desde la primera sesión.</p>
+      <ul class="service-list">
+        <li>Aumentos labiales</li>
+        <li>Limpiezas profundas</li>
+        <li>Tratamientos en cabina</li>
+        <li>Aparatología</li>
+      </ul>
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20tratamientos%20faciales%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
     </div>
 
-    <!-- 9. Lifting -->
-    <div class="service-card has-video">
-      <video class="card-video" autoplay muted loop playsinline preload="metadata" poster="video-lifting-poster.jpg" aria-hidden="true">
-        <source src="video-lifting.mp4" type="video/mp4">
-      </video>
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 28 Q10 20 14 15 Q18 10 20 10 Q22 10 26 15 Q30 20 28 28" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M15 26 Q20 22 25 26" stroke-linecap="round"/>
-          <path d="M20 10 L20 5 M16 7 L20 4 L24 7" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="16" cy="19" r="1.2" fill="var(--gold)" stroke="none"/>
-          <circle cx="24" cy="19" r="1.2" fill="var(--gold)" stroke="none"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Lifting</h3>
-      <p class="service-desc">Efecto tensor inmediato y duradero. Rejuvenece tu rostro sin cirugía con técnicas profesionales de última generación.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20lifting%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 10. Masajes cuerpo-alma -->
-    <div class="service-card">
-      <div class="service-icon" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 28 Q10 20 16 18 Q20 17 24 18 Q30 20 32 28" stroke-linecap="round"/>
-          <path d="M14 18 Q14 12 20 10 Q26 12 26 18" stroke-linecap="round"/>
-          <path d="M10 32 Q20 36 30 32" stroke-linecap="round" opacity="0.4"/>
-          <circle cx="20" cy="8" r="3" fill="none"/>
-        </svg>
-      </div>
-      <h3 class="service-name">Masajes Cuerpo-Alma</h3>
-      <p class="service-desc">Desconecta y recarga. Rituales de bienestar que cuidan tu cuerpo y equilibran tu mente.</p>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20reservar%20un%20masaje%20cuerpo-alma%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
-    </div>
-
-    <!-- 11. Tratamientos corporales -->
-    <div class="service-card">
+    <!-- 4. TRATAMIENTOS CORPORALES -->
+    <div class="service-card category">
       <div class="service-icon" aria-hidden="true">
         <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
           <ellipse cx="20" cy="24" rx="10" ry="12"/>
@@ -1241,7 +1319,12 @@
         </svg>
       </div>
       <h3 class="service-name">Tratamientos Corporales</h3>
-      <p class="service-desc">Cuida tu cuerpo por dentro y por fuera. Tratamientos personalizados para moldear, tonificar y recuperar tu bienestar.</p>
+      <ul class="service-list">
+        <li>Masajes de cuerpo y alma</li>
+        <li>Maderoterapia</li>
+        <li>Biosphere</li>
+        <li>Vela</li>
+      </ul>
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Quiero%20informaci%C3%B3n%20sobre%20tratamientos%20corporales%20%E2%9C%A8" target="_blank" class="btn-service">Consultar</a>
     </div>
 
@@ -1483,50 +1566,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" role="region">
-  <div class="about-grid">
-    <div class="about-image reveal">
-      <img src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1080" height="1620">
-    </div>
-    <div class="about-content reveal">
-      <span class="section-label">Sobre mí</span>
-      <h2 class="about-title">Hola,<br>soy Paula</h2>
-      <div class="gold-line"></div>
-      <p class="about-text">Especialista en nano pigmentación y extensiones de pestañas con sede en Vila-real. Mi misión es realzar tu belleza natural con técnicas que marcan la diferencia y resultados que hablan por sí solos.</p>
-      <div class="about-values">
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="18" cy="18" r="14"/>
-              <path d="M12 18 L16 22 L24 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <span class="value-label">Precisión</span>
-        </div>
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 8 Q28 14 28 22 Q28 30 18 32 Q8 30 8 22 Q8 14 18 8Z"/>
-              <path d="M14 20 Q18 16 22 20" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="value-label">Naturalidad</span>
-        </div>
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6 L22 14 L31 15 L24 22 L26 31 L18 27 L10 31 L12 22 L5 15 L14 14 Z" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <span class="value-label">Confianza</span>
-        </div>
-      </div>
-      <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20mi%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar mi cita</a>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT / FOOTER -->
 <section id="contact" role="region">
   <span class="contact-eyebrow reveal">Contacto</span>
@@ -1552,9 +1591,25 @@
       <p class="info-value"><a href="tel:+34641579467">641 579 467</a></p>
     </div>
     <div class="contact-info-item">
+      <p class="info-label">Email</p>
+      <p class="info-value"><a href="mailto:beautymorela@gmail.com">beautymorela@gmail.com</a></p>
+    </div>
+    <div class="contact-info-item">
       <p class="info-label">Instagram</p>
       <p class="info-value"><a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
     </div>
+  </div>
+
+  <!-- NEWSLETTER / SUSCRIPCIÓN -->
+  <div class="newsletter reveal">
+    <p class="newsletter-title">Suscríbete a nuestras novedades</p>
+    <p class="newsletter-sub">Promociones, consejos de belleza y novedades de MORELA. Sin spam.</p>
+    <form id="newsletterForm" class="newsletter-form" novalidate>
+      <input type="text" id="nlNombre" name="nombre" placeholder="Tu nombre (opcional)" autocomplete="name">
+      <input type="email" id="nlEmail" name="email" placeholder="Tu email" autocomplete="email" required>
+      <button type="submit" class="btn-newsletter" id="nlBtn">Suscribirme</button>
+    </form>
+    <p id="nlMsg" class="newsletter-msg" role="status" aria-live="polite"></p>
   </div>
 
   <div class="map-container reveal">
@@ -1579,6 +1634,11 @@
     <p>© 2026 MORELA clínica estética · Diseño web con amor · <a href="https://www.instagram.com/paulabeautymorela" target="_blank">@paulabeautymorela</a></p>
   </footer>
 </section>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="wa-float" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
 
 <!-- COOKIE BANNER -->
 <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
@@ -1783,6 +1843,53 @@
   const statsEl = document.getElementById('stats');
   if (statsEl) counterObserver.observe(statsEl);
 
+  /* ---- NEWSLETTER (Supabase) ---- */
+  const nlForm = document.getElementById('newsletterForm');
+  if (nlForm && window.supabase) {
+    const SUPABASE_URL = 'https://rxmenqkwlppbxvljlgrf.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_xo5sDtNpCzbTx-KxXWsbOQ_Kg800dpT';
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+    const nlEmail = document.getElementById('nlEmail');
+    const nlNombre = document.getElementById('nlNombre');
+    const nlBtn = document.getElementById('nlBtn');
+    const nlMsg = document.getElementById('nlMsg');
+
+    nlForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = nlEmail.value.trim();
+      const nombre = nlNombre.value.trim();
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        nlMsg.textContent = 'Introduce un email válido, por favor.';
+        nlMsg.classList.add('error');
+        return;
+      }
+
+      nlBtn.disabled = true;
+      const originalLabel = nlBtn.textContent;
+      nlBtn.textContent = 'Enviando...';
+      nlMsg.textContent = '';
+      nlMsg.classList.remove('error');
+
+      try {
+        const { error } = await sbClient.from('suscriptores').insert({ email: email, nombre: nombre || null });
+        if (error) throw error;
+        nlMsg.textContent = '¡Gracias! Te has suscrito ✓';
+        nlEmail.value = '';
+        nlNombre.value = '';
+      } catch (err) {
+        console.error('Error al suscribir:', err);
+        nlMsg.textContent = 'No hemos podido completar la suscripción. Inténtalo de nuevo en unos minutos.';
+        nlMsg.classList.add('error');
+      } finally {
+        nlBtn.disabled = false;
+        nlBtn.textContent = originalLabel;
+      }
+    });
+  }
+
   /* ---- COOKIE BANNER ---- */
   const cookieBanner = document.getElementById('cookie-banner');
   if (cookieBanner) {
@@ -1831,6 +1938,7 @@
   "name": "MORELA clínica estética",
   "url": "https://morelaclinica.com",
   "telephone": "+34641579467",
+  "email": "beautymorela@gmail.com",
   "image": "https://morelaclinica.com/og-image.jpg",
   "priceRange": "€€",
   "address": {
