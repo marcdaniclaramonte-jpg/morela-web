@@ -333,6 +333,25 @@
       margin-bottom: 3.5rem;
       transition: width 1s ease;
     }
+
+    /* ===================== JUEGO TIPOGRÁFICO ===================== */
+    /* Acentos con la fuente del logo (Cormorant) en cursiva dorada */
+    .accent {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+    }
+    .nav-logo .logo-o {
+      font-style: italic;
+      color: var(--gold);
+      transition: color 0.3s;
+    }
+    .nav-logo:hover .logo-o { color: var(--gold-light); }
+    .hero-title .char-accent {
+      font-style: italic;
+      color: var(--gold);
+    }
     .gold-line.visible { width: 80px; }
 
     /* scroll reveal */
@@ -403,6 +422,7 @@
     .service-card.category { min-height: 430px; display: flex; flex-direction: column; justify-content: flex-end; }
     .service-card.category .service-icon { margin-bottom: auto; }
     .service-card.category .service-name { font-size: 1.8rem; margin-bottom: 1rem; }
+    .service-card.category .service-name::first-letter { color: var(--gold); font-style: italic; }
     .service-list { margin: 0 0 1.6rem; }
     .service-list li {
       position: relative;
@@ -543,10 +563,10 @@
     }
     .masonry-item:hover .masonry-overlay { opacity: 1; }
     .masonry-overlay span {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
       color: var(--cream);
       border-bottom: 1px solid var(--gold);
       padding-bottom: 3px;
@@ -614,7 +634,7 @@
       z-index: 10;
     }
     .pill-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
-    .pill-name { font-size: 0.8rem; font-weight: 400; color: var(--dark); margin-bottom: 0.3rem; }
+    .pill-name { font-family: var(--font-display); font-style: italic; font-size: 1.02rem; font-weight: 400; color: var(--dark); margin-bottom: 0.3rem; }
     .pill-text { font-size: 0.76rem; color: var(--text-muted); line-height: 1.5; font-weight: 300; }
     .reviews-footer { text-align: center; padding: 3rem 4rem 0; }
 
@@ -1119,7 +1139,7 @@
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo">MORELA</a>
+  <a href="#hero" class="nav-logo">M<span class="logo-o">O</span>RELA</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#services">Servicios</a></li>
@@ -1140,7 +1160,7 @@
   <div class="hero-content" id="heroContent">
     <p class="hero-eyebrow">Clínica Estética · Vila-real</p>
     <h1 class="hero-title" id="heroTitle" aria-label="Tu mejor versión, empieza aquí"></h1>
-    <p class="hero-byline">by Paula Pastor · Castellón (al lado de Vila-real)</p>
+    <p class="hero-byline">by Paula Pastor · Vila-real (al lado de Castellón)</p>
     <p class="hero-subtitle">Nano pigmentación · Extensiones · Tratamientos</p>
     <div class="hero-ctas">
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar cita</a>
@@ -1172,7 +1192,7 @@
     </div>
     <div class="about-content reveal">
       <span class="section-label">Sobre mí</span>
-      <h2 class="about-title">Paula Pastor</h2>
+      <h2 class="about-title">Paula <span class="accent">Pastor</span></h2>
       <div class="gold-line"></div>
       <div class="about-text">
         <p>Hola, soy Paula, una apasionada de la belleza dedicada a transformar miradas a través de la nano pigmentación y las extensiones de pestañas, junto al cuidado de la piel y el cuerpo en una experiencia rejuvenecedora.</p>
@@ -1223,7 +1243,7 @@
     <p class="stat-label">Seguidores</p>
   </div>
   <div class="stat-item">
-    <span class="stat-number">5.0<span class="stat-suffix">★</span></span>
+    <span class="stat-number" style="color: var(--gold);">5.0<span class="stat-suffix">★</span></span>
     <p class="stat-label">Valoración</p>
   </div>
   <div class="stat-item">
@@ -1236,7 +1256,7 @@
 <section id="services" role="region">
   <div class="services-header reveal">
     <span class="section-label">Tratamientos</span>
-    <h2 class="section-title">Nuestros Servicios</h2>
+    <h2 class="section-title">Nuestros <span class="accent">Servicios</span></h2>
     <div class="gold-line"></div>
   </div>
   <div class="services-grid reveal">
@@ -1335,7 +1355,7 @@
 <section id="gallery" role="region">
   <div class="gallery-header reveal">
     <span class="section-label">Portfolio</span>
-    <h2 class="section-title">El trabajo habla por sí solo</h2>
+    <h2 class="section-title">El trabajo <span class="accent">habla por sí solo</span></h2>
     <div class="gold-line"></div>
   </div>
   <div class="masonry-grid reveal">
@@ -1385,7 +1405,7 @@
 <section id="reviews" role="region">
   <div class="reviews-header reveal">
     <span class="section-label">Clientas</span>
-    <h2 class="section-title">Lo que dicen nuestras clientas</h2>
+    <h2 class="section-title">Lo que dicen nuestras <span class="accent">clientas</span></h2>
     <p class="reviews-rating"><span class="stars">★★★★★</span> 5.0 · 16 reseñas en Google</p>
   </div>
 
@@ -1569,7 +1589,7 @@
 <!-- CONTACT / FOOTER -->
 <section id="contact" role="region">
   <span class="contact-eyebrow reveal">Contacto</span>
-  <h2 class="contact-title reveal">¿Lista para transformar<br>tu mirada?</h2>
+  <h2 class="contact-title reveal">¿Lista para transformar<br><span class="accent">tu mirada</span>?</h2>
   <div class="reveal">
     <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-whatsapp">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -1602,7 +1622,7 @@
 
   <!-- NEWSLETTER / SUSCRIPCIÓN -->
   <div class="newsletter reveal">
-    <p class="newsletter-title">Suscríbete a nuestras novedades</p>
+    <p class="newsletter-title">Suscríbete a nuestras <span class="accent">novedades</span></p>
     <p class="newsletter-sub">Promociones, consejos de belleza y novedades de MORELA. Sin spam.</p>
     <form id="newsletterForm" class="newsletter-form" novalidate>
       <input type="text" id="nlNombre" name="nombre" placeholder="Tu nombre (opcional)" autocomplete="name">
@@ -1764,7 +1784,7 @@
     }
     line.split('').forEach(ch => {
       const span = document.createElement('span');
-      span.className = 'char';
+      span.className = li === 1 ? 'char char-accent' : 'char';
       span.textContent = ch === ' ' ? ' ' : ch;
       span.style.transitionDelay = (0.6 + charIndex * 0.04) + 's';
       heroTitleEl.appendChild(span);
