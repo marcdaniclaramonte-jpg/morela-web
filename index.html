@@ -969,12 +969,106 @@
       .cookie-btn { flex: 1; min-width: 130px; text-align: center; }
     }
 
-    /* ===================== ABOUT MEDIA (foto o vídeo) ===================== */
+    /* ===================== ABOUT MEDIA (slider foto ⇄ vídeo) ===================== */
     .about-image .about-media {
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
     }
+    .media-slider {
+      position: relative;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      touch-action: pan-y;
+      cursor: grab;
+    }
+    .media-slider:active { cursor: grabbing; }
+    .media-track {
+      display: flex;
+      width: 200%; height: 100%;
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .media-track.dragging { transition: none; }
+    .media-slide {
+      position: relative;
+      width: 50%; height: 100%;
+      flex-shrink: 0;
+    }
+    /* Botón de sonido sobre el vídeo */
+    .mute-btn {
+      position: absolute;
+      bottom: 14px; right: 14px;
+      z-index: 4;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(26, 26, 24, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .mute-btn:hover { background: var(--gold); transform: scale(1.06); }
+    .mute-btn svg { width: 20px; height: 20px; stroke: var(--cream); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .mute-btn:hover svg { stroke: var(--dark); }
+    .mute-btn .ic-muted path:first-child,
+    .mute-btn .ic-unmuted path:first-child { fill: var(--cream); stroke: var(--cream); }
+    .mute-btn:hover .ic-muted path:first-child,
+    .mute-btn:hover .ic-unmuted path:first-child { fill: var(--dark); stroke: var(--dark); }
+    .mute-btn .ic-unmuted { display: none; }
+    .mute-btn.is-unmuted .ic-muted { display: none; }
+    .mute-btn.is-unmuted .ic-unmuted { display: block; }
+    /* Puntos indicadores */
+    .slider-dots {
+      position: absolute;
+      bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 20px;
+      background: rgba(26, 26, 24, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      background: rgba(250, 248, 245, 0.55);
+      cursor: pointer;
+      transition: width 0.3s, background 0.3s;
+    }
+    .dot.active { width: 22px; border-radius: 4px; background: var(--gold); }
+    /* Pista de "desliza" */
+    .swipe-hint {
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: rgba(26, 26, 24, 0.4);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .swipe-arrows { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; }
+    .swipe-hint.hidden { opacity: 0; }
     .about-text p { margin-bottom: 1rem; }
     .about-text p:last-child { margin-bottom: 0; }
 
@@ -1286,18 +1380,28 @@
 <section id="about" role="region">
   <div class="about-grid">
     <div class="about-image reveal">
-      <!--
-        FOTO ⇄ VÍDEO: este contenedor acepta imagen o vídeo.
-        Para cambiar a vídeo, sustituye el <img> de abajo por:
-
-        <video class="about-media" autoplay muted loop playsinline preload="metadata" poster="fotopaula.jpeg">
-          <source src="video-sobre-mi.mp4" type="video/mp4">
-        </video>
-
-        (sube el vídeo a la raíz del proyecto con el nombre video-sobre-mi.mp4;
-        el poster puede seguir siendo la foto actual)
-      -->
-      <img class="about-media" src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1023" height="1537">
+      <!-- Slider foto ⇄ vídeo: se desliza (swipe/arrastre) o con los puntos -->
+      <div class="media-slider" id="aboutSlider">
+        <div class="media-track" id="aboutTrack">
+          <div class="media-slide">
+            <img class="about-media" src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1023" height="1537">
+          </div>
+          <div class="media-slide">
+            <video id="aboutVideo" class="about-media" autoplay muted loop playsinline preload="metadata" poster="videotrabajando-poster.jpg">
+              <source src="videotrabajando.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="mute-btn" id="muteBtn" aria-label="Activar sonido del vídeo" aria-pressed="false">
+              <svg class="ic-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><line x1="16" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="16" y2="15"/></svg>
+              <svg class="ic-unmuted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8 8 0 0 1 0 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <span class="swipe-hint" id="swipeHint" aria-hidden="true">Desliza <span class="swipe-arrows">‹ ›</span></span>
+        <div class="slider-dots" role="tablist" aria-label="Cambiar entre foto y vídeo">
+          <button type="button" class="dot active" data-i="0" role="tab" aria-label="Ver foto" aria-selected="true"></button>
+          <button type="button" class="dot" data-i="1" role="tab" aria-label="Ver vídeo" aria-selected="false"></button>
+        </div>
+      </div>
     </div>
     <div class="about-content reveal">
       <span class="section-label">Sobre mí</span>
@@ -2130,6 +2234,83 @@
       }
     });
   });
+
+  /* ---- SLIDER SOBRE MÍ (foto ⇄ vídeo) ---- */
+  const slider = document.getElementById('aboutSlider');
+  if (slider) {
+    const track = document.getElementById('aboutTrack');
+    const dots = slider.querySelectorAll('.dot');
+    const aboutVideo = document.getElementById('aboutVideo');
+    const muteBtn = document.getElementById('muteBtn');
+    const hint = document.getElementById('swipeHint');
+    let index = 0;
+    let startX = 0, dragging = false;
+
+    function apply(pct) { track.style.transform = 'translateX(' + pct + '%)'; }
+
+    function goTo(i) {
+      index = Math.max(0, Math.min(1, i));
+      track.classList.remove('dragging');
+      apply(-(index * 50));
+      dots.forEach((d, di) => {
+        d.classList.toggle('active', di === index);
+        d.setAttribute('aria-selected', di === index ? 'true' : 'false');
+      });
+      // El sonido solo suena en la diapositiva del vídeo; al salir, se silencia
+      if (aboutVideo && index !== 1 && !aboutVideo.muted) {
+        aboutVideo.muted = true;
+        if (muteBtn) {
+          muteBtn.classList.remove('is-unmuted');
+          muteBtn.setAttribute('aria-pressed', 'false');
+          muteBtn.setAttribute('aria-label', 'Activar sonido del vídeo');
+        }
+      }
+      if (hint) hint.classList.add('hidden');
+    }
+
+    dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i, 10))));
+
+    if (muteBtn && aboutVideo) {
+      muteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        aboutVideo.muted = !aboutVideo.muted;
+        const soundOn = !aboutVideo.muted;
+        muteBtn.classList.toggle('is-unmuted', soundOn);
+        muteBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+        muteBtn.setAttribute('aria-label', soundOn ? 'Silenciar vídeo' : 'Activar sonido del vídeo');
+        if (soundOn) aboutVideo.play().catch(() => {});
+      });
+    }
+
+    function onMove(e) {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      let pct = -(index * 50) + (dx / slider.offsetWidth) * 50;
+      pct = Math.max(-50, Math.min(0, pct));
+      apply(pct);
+    }
+    function onUp(e) {
+      if (!dragging) return;
+      dragging = false;
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      const dx = e.clientX - startX;
+      const threshold = slider.offsetWidth * 0.18;
+      if (dx < -threshold) goTo(index + 1);
+      else if (dx > threshold) goTo(index - 1);
+      else goTo(index);
+    }
+    slider.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.mute-btn, .dot')) return;
+      dragging = true;
+      startX = e.clientX;
+      track.classList.add('dragging');
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    });
+
+    setTimeout(() => { if (hint) hint.classList.add('hidden'); }, 4500);
+  }
 
   /* ---- NEWSLETTER (Supabase) ---- */
   const nlForm = document.getElementById('newsletterForm');
