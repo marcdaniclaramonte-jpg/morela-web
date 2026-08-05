@@ -894,6 +894,37 @@
       line-height: 1.6;
     }
     .info-value a { color: var(--gold); }
+    /* Banner con la foto real del local */
+    .location-banner {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 1.2rem;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.08);
+    }
+    .location-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .location-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 2.4rem 1.6rem 1.1rem;
+      background: linear-gradient(to top, rgba(26,24,20,0.82) 0%, rgba(26,24,20,0.35) 55%, transparent 100%);
+      color: var(--cream);
+      font-size: 0.85rem;
+      font-weight: 300;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .location-caption strong { color: var(--gold-light); font-weight: 400; }
+    .location-pin { font-size: 1.1rem; line-height: 1; }
     .map-container {
       max-width: 900px;
       margin: 0 auto 4rem;
@@ -902,6 +933,9 @@
       border: 1px solid rgba(201, 169, 110, 0.25);
     }
     .map-container iframe { display: block; }
+    @media (max-width: 480px) {
+      .location-caption { font-size: 0.76rem; padding: 2rem 1.1rem 0.9rem; }
+    }
     footer {
       border-top: 1px solid rgba(201, 169, 110, 0.3);
       padding-top: 2.5rem;
@@ -1981,6 +2015,14 @@
     </form>
     <p id="nlMsg" class="newsletter-msg" role="status" aria-live="polite"></p>
   </div>
+
+  <figure class="location-banner reveal">
+    <img src="local-morela.jpg" alt="Fachada de MORELA Esthetic en la esquina del Passatge Josep Pasqual Goterris Albiol, 12, Vila-real" loading="lazy" width="1600" height="1066">
+    <figcaption class="location-caption">
+      <span class="location-pin" aria-hidden="true">📍</span>
+      <span>Aquí nos encuentras · <strong>Passatge Josep Pasqual Goterris Albiol, 12 — Vila-real</strong></span>
+    </figcaption>
+  </figure>
 
   <div class="map-container reveal">
     <iframe
