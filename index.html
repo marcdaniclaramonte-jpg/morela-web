@@ -173,11 +173,54 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background: linear-gradient(160deg, var(--cream) 0%, var(--beige) 100%);
+      isolation: isolate;
+      background:
+        radial-gradient(ellipse 72% 58% at 50% 40%, rgba(255,255,255,0.65) 0%, transparent 58%),
+        radial-gradient(ellipse 55% 52% at 12% 16%, rgba(201,169,110,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 58% 55% at 88% 90%, rgba(201,169,110,0.15) 0%, transparent 60%),
+        linear-gradient(160deg, var(--cream) 0%, var(--beige) 100%);
+    }
+    /* Textura de grano fina sobre el hero */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 240px 240px;
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+    }
+    /* Aro dorado decorativo detrás del contenido */
+    #hero .hero-ring {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: min(680px, 88vw);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(201, 169, 110, 0.28);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      animation: ringIn 1.6s ease 0.4s forwards;
+    }
+    .hero-ring::after {
+      content: '';
+      position: absolute;
+      inset: 26px;
+      border: 1px solid rgba(201, 169, 110, 0.16);
+      border-radius: 50%;
+    }
+    @keyframes ringIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
     #particles-canvas {
       position: absolute;
       inset: 0;
+      z-index: 1;
       pointer-events: none;
     }
     .hero-content {
@@ -199,7 +242,33 @@
       margin-bottom: 1.8rem;
       opacity: 0;
       animation: fadeUp 0.8s ease 0.3s forwards;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
     }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      width: 34px; height: 1px;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+    .hero-trust {
+      margin-top: 2.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2.15s forwards;
+    }
+    .hero-trust .stars { color: var(--gold); letter-spacing: 0.12em; font-size: 0.82rem; }
+    .hero-trust .dot-sep { color: var(--gold); opacity: 0.6; }
     .hero-title {
       font-family: var(--font-display);
       font-size: clamp(2rem, 8vw, 7.5rem);
@@ -1400,6 +1469,7 @@
 <!-- HERO -->
 <section id="hero" role="banner">
   <canvas id="particles-canvas"></canvas>
+  <div class="hero-ring" aria-hidden="true"></div>
   <div class="hero-content" id="heroContent">
     <p class="hero-eyebrow">Clínica Estética · Vila-real</p>
     <h1 class="hero-title" id="heroTitle" aria-label="Tu mejor versión, empieza aquí"></h1>
@@ -1409,6 +1479,12 @@
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar cita</a>
       <a href="#services" class="btn-outline">Ver servicios</a>
     </div>
+    <p class="hero-trust">
+      <span class="stars">★★★★★</span>
+      <span>5.0 en Google</span>
+      <span class="dot-sep">·</span>
+      <span>+2.750 seguidores en Instagram</span>
+    </p>
   </div>
   <div class="scroll-indicator" aria-hidden="true">
     <span>Scroll</span>
@@ -1420,28 +1496,12 @@
 <section id="about" role="region">
   <div class="about-grid">
     <div class="about-image reveal">
-      <!-- Slider foto ⇄ vídeo: se desliza (swipe/arrastre) o con los puntos -->
-      <div class="media-slider" id="aboutSlider">
-        <div class="media-track" id="aboutTrack">
-          <div class="media-slide">
-            <img class="about-media" src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1024" height="1536">
-          </div>
-          <div class="media-slide">
-            <video id="aboutVideo" class="about-media" autoplay muted loop playsinline preload="metadata" poster="videotrabajando-poster.jpg">
-              <source src="videotrabajando.mp4" type="video/mp4">
-            </video>
-            <button type="button" class="mute-btn" id="muteBtn" aria-label="Activar sonido del vídeo" aria-pressed="false">
-              <svg class="ic-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><line x1="16" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="16" y2="15"/></svg>
-              <svg class="ic-unmuted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8 8 0 0 1 0 12"/></svg>
-            </button>
-          </div>
-        </div>
-        <span class="swipe-hint" id="swipeHint" aria-hidden="true">Desliza <span class="swipe-arrows">‹ ›</span></span>
-        <div class="slider-dots" role="tablist" aria-label="Cambiar entre foto y vídeo">
-          <button type="button" class="dot active" data-i="0" role="tab" aria-label="Ver foto" aria-selected="true"></button>
-          <button type="button" class="dot" data-i="1" role="tab" aria-label="Ver vídeo" aria-selected="false"></button>
-        </div>
-      </div>
+      <!--
+        Por ahora solo foto. Cuando Paula elija el nuevo vídeo, se vuelve a poner
+        el slider foto ⇄ vídeo (el CSS .media-slider/.mute-btn/.slider-dots y el JS
+        del slider siguen en el archivo listos para reactivarse).
+      -->
+      <img class="about-media" src="fotopaula.jpeg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1024" height="1536">
     </div>
     <div class="about-content reveal">
       <span class="section-label">Sobre mí</span>
