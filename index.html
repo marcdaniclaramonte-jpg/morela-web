@@ -593,6 +593,37 @@
       font-style: italic;
       font-size: 1.15rem;
     }
+    /* Vídeo dentro de una tarjeta de subservicio (completo, sin recortes) */
+    .sub-card video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Tarjeta antes / después: dos fotos lado a lado, ocupa doble ancho */
+    .sub-card.ba-card { grid-column: span 2; }
+    .ba {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(201, 169, 110, 0.25);
+    }
+    .ba figure { position: relative; margin: 0; }
+    .ba figure img { width: 100%; height: auto; display: block; }
+    .ba figcaption {
+      position: absolute;
+      left: 10px; bottom: 10px;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: rgba(26, 26, 24, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .ba figure:last-child figcaption { background: var(--gold); color: var(--dark); }
     .sub-body { padding: 1.1rem 1.2rem 1.3rem; }
     .sub-name {
       font-family: var(--font-display);
@@ -1594,15 +1625,24 @@
       </button>
       <div class="subservices-panel" id="panel-mirada">
         <div class="sub-grid">
-          <div class="sub-card">
-            <img src="video-lifting-poster.jpg" alt="Lifting de pestañas en MORELA clínica estética, Vila-real" loading="lazy">
+          <div class="sub-card ba-card">
+            <div class="ba">
+              <figure>
+                <img src="lifting-antes.jpg" alt="Pestañas antes del lifting en MORELA clínica estética, Vila-real" loading="lazy" width="900" height="1200">
+                <figcaption>Antes</figcaption>
+              </figure>
+              <figure>
+                <img src="lifting-despues.jpg" alt="Pestañas después del lifting en MORELA clínica estética, Vila-real" loading="lazy" width="900" height="1200">
+                <figcaption>Después</figcaption>
+              </figure>
+            </div>
             <div class="sub-body">
               <h4 class="sub-name">Lifting de pestañas</h4>
               <p class="sub-desc">Eleva y curva tu pestaña natural desde la raíz, con un efecto que dura semanas.</p>
             </div>
           </div>
           <div class="sub-card">
-            <img src="fotocara.jpeg" alt="Extensiones de pestañas en MORELA clínica estética, Vila-real" loading="lazy">
+            <img src="extensiones-pestanas.jpg" alt="Extensiones de pestañas en MORELA clínica estética, Vila-real" loading="lazy" width="900" height="1126">
             <div class="sub-body">
               <h4 class="sub-name">Extensiones de pestañas</h4>
               <p class="sub-desc">Volumen y longitud pelo a pelo, adaptadas a tu morfología y a tu estilo.</p>
@@ -1650,8 +1690,17 @@
               <p class="sub-desc">Rellena y da forma a tus cejas con un resultado 100% natural.</p>
             </div>
           </div>
-          <div class="sub-card">
-            <img src="microblading.jpg" alt="Microblading de cejas en MORELA clínica estética, Vila-real" loading="lazy">
+          <div class="sub-card ba-card">
+            <div class="ba">
+              <figure>
+                <img src="microblading-antes.jpg" alt="Cejas antes del microblading en MORELA clínica estética, Vila-real" loading="lazy" width="900" height="1600">
+                <figcaption>Antes</figcaption>
+              </figure>
+              <figure>
+                <img src="microblading-despues.jpg" alt="Cejas después del microblading en MORELA clínica estética, Vila-real" loading="lazy" width="900" height="1600">
+                <figcaption>Después</figcaption>
+              </figure>
+            </div>
             <div class="sub-body">
               <h4 class="sub-name">Microblading</h4>
               <p class="sub-desc">Trazo a trazo, pelo a pelo: el acabado más realista para tus cejas.</p>
@@ -1771,7 +1820,9 @@
             </div>
           </div>
           <div class="sub-card">
-            <div class="sub-photo-soon">Próximamente</div>
+            <video autoplay muted loop playsinline preload="metadata" poster="video-maderoterapia-poster.jpg" aria-label="Sesión de maderoterapia en MORELA clínica estética, Vila-real">
+              <source src="video-maderoterapia.mp4" type="video/mp4">
+            </video>
             <div class="sub-body">
               <h4 class="sub-name">Maderoterapia</h4>
               <p class="sub-desc">Moldea y tonifica con técnicas naturales de madera.</p>
