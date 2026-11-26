@@ -1,0 +1,15 @@
+# Variables de entorno / secretos
+.env
+.env.*
+*.pem
+*.key
+
+# Configuración local de Claude Code y Vercel
+.claude/settings.local.json
+.vercel/
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
