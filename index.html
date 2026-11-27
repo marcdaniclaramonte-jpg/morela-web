@@ -1524,9 +1524,82 @@
       .hero-ctas { gap: 0.6rem; }
       .scroll-indicator { display: none; }
     }
+
+    /* ===================== INTRO (vídeo de entrada) ===================== */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9997; /* por encima de todo menos del cursor personalizado */
+      background: #1A1A18 url("video-intro-poster.jpg") 50% 35% / cover no-repeat;
+      overflow: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #intro video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+      display: block;
+      transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    #intro.intro-out { opacity: 0; visibility: hidden; pointer-events: none; }
+    #intro.intro-out video { transform: scale(1.08); }
+    .intro-skip {
+      position: absolute;
+      right: 1.4rem; bottom: 1.4rem;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: rgba(26, 26, 24, 0.28);
+      border: 1px solid rgba(250, 248, 245, 0.5);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      cursor: pointer;
+    }
+    .intro-skip:hover { background: rgba(26, 26, 24, 0.5); }
+    /* Mientras suena la intro: sin scroll y las animaciones del hero esperan */
+    html.intro-on { overflow: hidden; }
+    html.intro-on #hero *,
+    html.intro-on #hero *::before,
+    html.intro-on #hero *::after { animation-play-state: paused !important; }
   </style>
 </head>
 <body>
+
+<!-- INTRO: vídeo de entrada mientras carga la web (1 vez por visita) -->
+<div id="intro">
+  <video id="introVideo" muted playsinline preload="auto" poster="video-intro-poster.jpg" aria-hidden="true"></video>
+  <button type="button" id="introSkip" class="intro-skip" aria-label="Saltar intro">Saltar</button>
+</div>
+<script>
+  /* Decide antes de pintar nada si se muestra la intro.
+     Solo la primera vez en la visita (si vuelves del blog no se repite)
+     y nunca con "reducir movimiento" activado. */
+  (function () {
+    var cbs = [];
+    window.morelaIntro = {
+      done: false,
+      onDone: function (fn) { this.done ? fn() : cbs.push(fn); },
+      finish: function () {
+        if (this.done) return;
+        this.done = true;
+        cbs.forEach(function (fn) { fn(); });
+      }
+    };
+    var intro = document.getElementById('intro');
+    var skip = false;
+    try { skip = sessionStorage.getItem('morelaIntroVista') === '1'; } catch (e) {}
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) skip = true;
+    if (skip) { intro.parentNode.removeChild(intro); window.morelaIntro.done = true; return; }
+    document.documentElement.classList.add('intro-on');
+    var v = document.getElementById('introVideo');
+    v.src = window.innerWidth > 768 ? 'video-intro-1080.mp4' : 'video-intro-720.mp4';
+    v.autoplay = true;
+  })();
+</script>
 
 <!-- CUSTOM CURSOR -->
 <div id="cursor"></div>
@@ -2364,11 +2437,43 @@
   });
 
   window.addEventListener('load', () => {
-    document.querySelectorAll('.hero-title .char').forEach(c => {
-      c.style.opacity = '1';
-      c.style.transform = 'translateY(0)';
+    // Si hay intro, el título entra cuando la clienta cruza la puerta
+    window.morelaIntro.onDone(() => {
+      document.querySelectorAll('.hero-title .char').forEach(c => {
+        c.style.opacity = '1';
+        c.style.transform = 'translateY(0)';
+      });
     });
   });
+
+  /* ---- INTRO: vídeo de la puerta → aparece la web ---- */
+  (function () {
+    const intro = document.getElementById('intro');
+    if (!intro) return; // ya vista en esta visita
+    const v = document.getElementById('introVideo');
+    const REVEAL_AT = 2.2; // segundo en que la clienta entra por la puerta
+    let closed = false;
+    function closeIntro() {
+      if (closed) return;
+      closed = true;
+      try { sessionStorage.setItem('morelaIntroVista', '1'); } catch (e) {}
+      intro.classList.add('intro-out');
+      document.documentElement.classList.remove('intro-on');
+      window.morelaIntro.finish();
+      setTimeout(() => { v.pause(); intro.remove(); }, 1000);
+    }
+    v.addEventListener('timeupdate', () => { if (v.currentTime >= REVEAL_AT) closeIntro(); });
+    v.addEventListener('ended', closeIntro);
+    v.addEventListener('error', closeIntro);
+    document.getElementById('introSkip').addEventListener('click', closeIntro);
+    // Si el móvil no deja reproducir (modo ahorro, etc.), se entra directo
+    const p = v.play();
+    if (p && p.catch) p.catch(closeIntro);
+    // Red lenta: si en 3 s no ha arrancado, no hacemos esperar
+    setTimeout(() => { if (v.currentTime === 0) closeIntro(); }, 3000);
+    // Tope absoluto
+    setTimeout(closeIntro, 7000);
+  })();
 
   /* ---- VÍDEO HERO: progreso de scroll + pausar cuando está tapado ---- */
   const heroEl = document.getElementById('hero');
