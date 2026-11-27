@@ -1516,6 +1516,111 @@
       .scroll-indicator { display: none; }
     }
 
+    /* ===================== SOBRE MÍ (composición única tipo cartel) ===================== */
+    #about {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 6rem 4rem 0;
+      background:
+        radial-gradient(ellipse 50% 65% at 74% 38%, rgba(255, 250, 244, 0.9) 0%, rgba(255, 250, 244, 0) 70%),
+        linear-gradient(160deg, #EFE6DB 0%, #E4D7C7 55%, #DACAB6 100%);
+    }
+    .about-leaves {
+      position: absolute;
+      left: -3%; bottom: -4%;
+      width: min(44%, 520px);
+      height: auto;
+      opacity: 0.13;
+      filter: blur(7px);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .about-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      grid-template-areas: "head fig" "body fig";
+      column-gap: 3rem;
+      min-height: 640px;
+    }
+    .about-head { grid-area: head; align-self: end; }
+    .about-body { grid-area: body; align-self: start; max-width: 30rem; padding: 2rem 0 6rem; }
+    .about-figure { grid-area: fig; align-self: end; position: relative; }
+    /* Aros dorados finos detrás de Paula */
+    .about-figure::before, .about-figure::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .about-figure::before {
+      width: 92%; aspect-ratio: 1;
+      left: 18%; top: 4%;
+      border: 1px solid rgba(201, 169, 110, 0.38);
+    }
+    .about-figure::after {
+      width: 80%; aspect-ratio: 1;
+      left: 24%; top: 10%;
+      border: 1px solid rgba(201, 169, 110, 0.2);
+    }
+    .about-figure img {
+      display: block;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      margin: 0 auto;
+      filter: drop-shadow(10px 16px 22px rgba(90, 68, 46, 0.09));
+    }
+    #about .about-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.4rem, 6.4vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      color: #5A4636;
+      margin: 0.8rem 0 0.9rem;
+    }
+    .about-sign {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      font-weight: 300;
+      color: #A87E3C;
+      letter-spacing: 0.03em;
+    }
+    #about .about-text {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: #6B5B4D;
+      margin-bottom: 2.2rem;
+    }
+    @media (max-width: 1024px) {
+      #about { padding: 5rem 2.5rem 0; }
+      .about-wrap { column-gap: 2rem; min-height: 0; }
+      .about-body { padding-bottom: 4rem; }
+    }
+    /* Móvil / tablet vertical: título → Paula → texto */
+    @media (max-width: 768px) {
+      #about { padding: 4rem 1.5rem 3.5rem; }
+      .about-wrap {
+        grid-template-columns: 1fr;
+        grid-template-areas: "head" "fig" "body";
+        text-align: center;
+      }
+      .about-head { margin-bottom: 1.5rem; }
+      .about-figure img { max-width: min(86vw, 380px); }
+      .about-figure::before { width: 84%; left: 8%; top: 2%; }
+      .about-figure::after { width: 70%; left: 15%; top: 9%; }
+      .about-body { max-width: 34rem; margin: 0 auto; padding: 1.2rem 0 0; }
+      .about-leaves { width: 70%; left: -28%; bottom: auto; top: 30%; opacity: 0.06; }
+    }
+    @media (max-width: 480px) {
+      #about { padding: 3.2rem 1.2rem 3rem; }
+      #about .about-text { font-size: 0.9rem; }
+    }
+
     /* ===================== INTRO (vídeo de entrada) ===================== */
     #intro {
       position: fixed;
@@ -1651,51 +1756,43 @@
 
 <!-- ABOUT -->
 <section id="about" role="region">
-  <div class="about-grid">
-    <div class="about-image reveal">
-      <!--
-        Por ahora solo foto. Cuando Paula elija el nuevo vídeo, se vuelve a poner
-        el slider foto ⇄ vídeo (el CSS .media-slider/.mute-btn/.slider-dots y el JS
-        del slider siguen en el archivo listos para reactivarse).
-      -->
-      <img class="about-media" src="paula-clinica.jpg" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="1000" height="1501">
-    </div>
-    <div class="about-content reveal">
+  <!-- Sombra suave de hojas (decorativa) -->
+  <svg class="about-leaves" viewBox="0 0 480 640" aria-hidden="true" focusable="false">
+    <g fill="#3B2E22">
+      <path d="M40 620 Q120 300 330 40" fill="none" stroke="#3B2E22" stroke-width="5"/>
+      <ellipse cx="123" cy="525" rx="73" ry="26" transform="rotate(-26 123 525)"/>
+      <ellipse cx="44" cy="434" rx="69" ry="25" transform="rotate(-119 44 434)"/>
+      <ellipse cx="162" cy="410" rx="66" ry="24" transform="rotate(-20 162 410)"/>
+      <ellipse cx="99" cy="316" rx="63" ry="23" transform="rotate(-114 99 316)"/>
+      <ellipse cx="210" cy="299" rx="59" ry="22" transform="rotate(-15 210 299)"/>
+      <ellipse cx="165" cy="205" rx="56" ry="20" transform="rotate(-109 165 205)"/>
+      <ellipse cx="268" cy="192" rx="53" ry="19" transform="rotate(-10 268 192)"/>
+      <ellipse cx="239" cy="98" rx="49" ry="18" transform="rotate(-104 239 98)"/>
+      <ellipse cx="335" cy="88" rx="46" ry="17" transform="rotate(-5 335 88)"/>
+      <path d="M10 520 Q230 330 420 260" fill="none" stroke="#3B2E22" stroke-width="5"/>
+      <ellipse cx="68" cy="415" rx="60" ry="22" transform="rotate(-87 68 415)"/>
+      <ellipse cx="173" cy="443" rx="56" ry="20" transform="rotate(11 173 443)"/>
+      <ellipse cx="177" cy="342" rx="53" ry="19" transform="rotate(-83 177 342)"/>
+      <ellipse cx="270" cy="373" rx="49" ry="18" transform="rotate(16 270 373)"/>
+      <ellipse cx="283" cy="284" rx="46" ry="17" transform="rotate(-78 283 284)"/>
+      <ellipse cx="363" cy="318" rx="43" ry="15" transform="rotate(21 363 318)"/>
+      <ellipse cx="384" cy="242" rx="39" ry="14" transform="rotate(-72 384 242)"/>
+    </g>
+  </svg>
+  <div class="about-wrap">
+    <div class="about-head reveal">
       <span class="section-label">Sobre mí</span>
-      <h2 class="about-title">Paula <span class="accent">Pastor</span></h2>
-      <div class="gold-line"></div>
+      <h2 class="about-title">Conóceme</h2>
+      <p class="about-sign">Paula Pastor · fundadora de MORELA</p>
+    </div>
+    <div class="about-figure">
+      <img src="paula-sobre-mi.webp" alt="Paula Pastor, especialista en estética y fundadora de MORELA clínica estética en Vila-real" loading="lazy" width="820" height="1226">
+    </div>
+    <div class="about-body reveal">
       <div class="about-text">
         <p>Hola, soy Paula, una apasionada de la belleza dedicada a transformar miradas a través de la nano pigmentación y las extensiones de pestañas, junto al cuidado de la piel y el cuerpo en una experiencia rejuvenecedora.</p>
         <p>Mi misión es resaltar tu belleza natural con técnicas que marcan la diferencia y resultados que hablan por sí solos.</p>
         <p>¿Estás lista para conseguir tu mejor versión?</p>
-      </div>
-      <div class="about-values">
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="18" cy="18" r="14"/>
-              <path d="M12 18 L16 22 L24 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <span class="value-label">Precisión</span>
-        </div>
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 8 Q28 14 28 22 Q28 30 18 32 Q8 30 8 22 Q8 14 18 8Z"/>
-              <path d="M14 20 Q18 16 22 20" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="value-label">Naturalidad</span>
-        </div>
-        <div class="value-item">
-          <div class="value-icon" aria-hidden="true">
-            <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6 L22 14 L31 15 L24 22 L26 31 L18 27 L10 31 L12 22 L5 15 L14 14 Z" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <span class="value-label">Confianza</span>
-        </div>
       </div>
       <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20mi%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="btn-primary">Reservar mi cita</a>
     </div>
