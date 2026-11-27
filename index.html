@@ -969,10 +969,14 @@
       inset: 0;
       z-index: -1;
       background:
-        radial-gradient(ellipse 60% 70% at 50% 50%, rgba(250,248,245,0.80) 0%, rgba(250,248,245,0.50) 100%);
+        radial-gradient(ellipse 55% 62% at 50% 50%, rgba(250,248,245,0.70) 0%, rgba(250,248,245,0.28) 100%);
     }
     .contact-hero .contact-sub { color: #5E5A54; }
     .contact-hero .contact-eyebrow { color: #A87E3C; font-weight: 400; }
+    /* Halo claro suave detrás de las letras para que se lean sobre la foto */
+    .contact-hero .contact-eyebrow,
+    .contact-hero .contact-title,
+    .contact-hero .contact-sub { text-shadow: 0 0 18px rgba(250,248,245,0.9), 0 0 4px rgba(250,248,245,0.6); }
     .contact-hero .contact-title .accent { color: #B8925A; }
     .contact-eyebrow {
       font-size: 0.68rem;
