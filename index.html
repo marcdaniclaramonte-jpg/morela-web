@@ -165,7 +165,10 @@
 
     /* ===================== HERO ===================== */
     #hero {
-      position: relative;
+      /* Se queda fija al fondo y la web "sube" por encima al hacer scroll */
+      position: sticky;
+      top: 0;
+      z-index: 0;
       height: 100vh;
       height: 100svh;
       min-height: 580px;
@@ -180,6 +183,54 @@
         radial-gradient(ellipse 58% 55% at 88% 90%, rgba(201,169,110,0.15) 0%, transparent 60%),
         linear-gradient(160deg, var(--cream) 0%, var(--beige) 100%);
     }
+    /* Vídeo de fondo del hero (en bucle infinito) */
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .hero-video video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 32%;
+      display: block;
+      transform: scale(calc(1 + var(--hero-p, 0) * 0.08));
+      transform-origin: 50% 35%;
+    }
+    /* Velo crema para que el texto se lea bien encima del vídeo */
+    .hero-video::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 50% 50%, rgba(250,248,245,0.74) 0%, rgba(250,248,245,0.42) 75%),
+        linear-gradient(180deg, rgba(250,248,245,0.35) 0%, rgba(250,248,245,0.10) 45%, rgba(250,248,245,0.55) 100%);
+    }
+    .hero-content { opacity: calc(1 - var(--hero-p, 0) * 1.3); }
+    /* Móvil vertical: texto abajo (sobre el uniforme blanco) y la cara libre arriba */
+    @media (max-width: 768px) and (orientation: portrait) {
+      #hero { align-items: flex-end; padding-bottom: 2.6rem; }
+      .hero-video video { object-position: 50% 0%; }
+      .hero-video::after {
+        background: linear-gradient(180deg,
+          rgba(250,248,245,0.30) 0%, rgba(250,248,245,0.05) 22%,
+          rgba(250,248,245,0.10) 33%, rgba(250,248,245,0.84) 50%,
+          rgba(250,248,245,0.90) 100%);
+      }
+    }
+
+    /* Lámina con el resto de la web que sube por encima del hero */
+    .page-sheet {
+      position: relative;
+      background: var(--cream);
+      border-radius: 28px 28px 0 0;
+      overflow: hidden;
+      overflow: clip;
+      box-shadow: 0 -18px 50px rgba(26, 26, 24, 0.14);
+    }
+
     /* Textura de grano fina sobre el hero */
     #hero::before {
       content: '';
@@ -1500,6 +1551,11 @@
 
 <!-- HERO -->
 <section id="hero" role="banner">
+  <div class="hero-video" aria-hidden="true">
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="video-hero-poster.jpg" width="1080" height="1918">
+      <source src="video-hero.mp4" type="video/mp4">
+    </video>
+  </div>
   <canvas id="particles-canvas"></canvas>
   <div class="hero-ring" aria-hidden="true"></div>
   <div class="hero-content" id="heroContent">
@@ -1523,6 +1579,9 @@
     <div class="scroll-line"></div>
   </div>
 </section>
+
+<!-- Todo lo que va después del hero sube por encima de él al hacer scroll -->
+<div class="page-sheet">
 
 <!-- ABOUT -->
 <section id="about" role="region">
@@ -2165,6 +2224,8 @@
   </footer>
 </section>
 
+</div><!-- /.page-sheet -->
+
 <!-- WHATSAPP FLOTANTE -->
 <a href="https://wa.me/34641579467?text=Hola%20Paula!%20Me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20MORELA%20%F0%9F%8C%9F" target="_blank" class="wa-float" aria-label="Escríbenos por WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -2308,6 +2369,27 @@
       c.style.transform = 'translateY(0)';
     });
   });
+
+  /* ---- VÍDEO HERO: progreso de scroll + pausar cuando está tapado ---- */
+  const heroEl = document.getElementById('hero');
+  const heroVideo = document.getElementById('heroVideo');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
+  let heroTicking = false;
+  function updateHero() {
+    heroTicking = false;
+    const h = heroEl.offsetHeight || window.innerHeight;
+    const p = Math.min(Math.max(window.scrollY / h, 0), 1);
+    heroEl.style.setProperty('--hero-p', p.toFixed(3));
+    // Cuando la web ya tapa el hero, el vídeo se pausa (ahorra batería)
+    if (reduceMotion) return;
+    if (p >= 1) { if (!heroVideo.paused) heroVideo.pause(); }
+    else if (heroVideo.paused) { heroVideo.play().catch(() => {}); }
+  }
+  window.addEventListener('scroll', () => {
+    if (!heroTicking) { heroTicking = true; requestAnimationFrame(updateHero); }
+  }, { passive: true });
+  updateHero();
 
   /* ---- PARALLAX HERO (solo desktop) ---- */
   const heroContent = document.getElementById('heroContent');
