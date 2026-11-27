@@ -2454,7 +2454,7 @@
     const intro = document.getElementById('intro');
     if (!intro) return; // ya vista en esta visita
     const v = document.getElementById('introVideo');
-    const REVEAL_AT = 0.7; // segundo en que la clienta entra por la puerta (intro ~1 s)
+    const REVEAL_AT = 1.1; // segundo en que la clienta entra por la puerta (intro ~1,5 s)
     let closed = false;
     function closeIntro() {
       if (closed) return;
@@ -2471,13 +2471,15 @@
        fotograma), zoom]. Entra por la izquierda, pasa por delante de Paula y
        sale por la puerta a la derecha. */
     const CAM = [
-      [0.00, 0.40, 0.38, 1.10],
-      [0.20, 0.46, 0.40, 1.20],
-      [0.40, 0.50, 0.40, 1.28],
-      [0.60, 0.63, 0.42, 1.35],
-      [0.80, 0.79, 0.45, 1.42],
-      [1.00, 0.92, 0.50, 1.50],
-      [1.13, 1.00, 0.55, 1.56]
+      [0.00, 0.36, 0.36, 1.05],
+      [0.20, 0.32, 0.37, 1.12],
+      [0.40, 0.40, 0.38, 1.20],
+      [0.60, 0.46, 0.40, 1.27],
+      [0.80, 0.50, 0.40, 1.33],
+      [1.00, 0.63, 0.42, 1.39],
+      [1.20, 0.79, 0.45, 1.45],
+      [1.40, 0.92, 0.50, 1.52],
+      [1.52, 1.00, 0.55, 1.57]
     ];
     const FOLLOW = 0.75; // cuánto la llevamos hacia el centro de la pantalla (0–1)
     /* El vídeo da su tiempo "a saltos" (por fotograma); lo suavizamos con el
