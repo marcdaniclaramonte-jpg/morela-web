@@ -1535,20 +1535,17 @@
       transition: opacity 1.5s ease, visibility 1.5s ease;
     }
     #intro video {
-      width: 100%; height: 100%;
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%; /* JS lo ajusta al tamaño real del fotograma */
       object-fit: cover;
       object-position: 50% 35%;
       display: block;
-      /* El zoom acompaña a la clienta hacia la puerta (derecha) */
-      transform-origin: 62% 42%;
-      transition: transform 3s cubic-bezier(0.45, 0, 0.55, 1);
+      /* La "cámara" (zoom + paneo que sigue a la clienta) se mueve por JS */
+      transform-origin: 0 0;
+      will-change: transform;
     }
-    #intro.intro-zoom video { transform: scale(1.12); }
     #intro.intro-out { opacity: 0; visibility: hidden; pointer-events: none; }
-    #intro.intro-out video {
-      transform: scale(1.3);
-      transition: transform 1.8s cubic-bezier(0.25, 0.6, 0.3, 1);
-    }
     .intro-skip {
       position: absolute;
       right: 1.4rem; bottom: 1.4rem;
@@ -2466,10 +2463,69 @@
       intro.classList.add('intro-out');
       document.documentElement.classList.remove('intro-on');
       window.morelaIntro.finish();
-      setTimeout(() => { v.pause(); intro.remove(); }, 1900);
+      setTimeout(() => { camRunning = false; v.pause(); intro.remove(); }, 1900);
     }
-    // Zoom suave mientras la clienta avanza hacia la puerta
-    v.addEventListener('playing', () => intro.classList.add('intro-zoom'), { once: true });
+
+    /* Cámara que sigue a la clienta.
+       Cada punto: [segundo del vídeo, x, y (posición de su cabeza, 0–1 del
+       fotograma), zoom]. Entra por la izquierda, pasa por delante de Paula y
+       sale por la puerta a la derecha. */
+    const CAM = [
+      [0.00, 0.50, 0.42, 1.00],
+      [0.75, 0.46, 0.40, 1.03],
+      [1.00, 0.36, 0.36, 1.08],
+      [1.25, 0.32, 0.37, 1.14],
+      [1.50, 0.40, 0.38, 1.20],
+      [1.75, 0.46, 0.40, 1.25],
+      [2.00, 0.50, 0.40, 1.29],
+      [2.25, 0.63, 0.42, 1.33],
+      [2.50, 0.79, 0.45, 1.39],
+      [2.75, 0.92, 0.50, 1.46],
+      [3.00, 1.00, 0.55, 1.55],
+      [3.75, 1.00, 0.56, 1.70]
+    ];
+    const FOLLOW = 0.65; // cuánto la llevamos hacia el centro de la pantalla (0–1)
+    function cr(p0, p1, p2, p3, t) { // Catmull-Rom: curva suave entre puntos
+      const t2 = t * t, t3 = t2 * t;
+      return 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
+    }
+    function sampleCam(t) {
+      const n = CAM.length;
+      if (t <= CAM[0][0]) return CAM[0].slice(1);
+      if (t >= CAM[n - 1][0]) return CAM[n - 1].slice(1);
+      let i = 0;
+      while (CAM[i + 1][0] < t) i++;
+      const a = CAM[Math.max(i - 1, 0)], b = CAM[i], c = CAM[i + 1], d = CAM[Math.min(i + 2, n - 1)];
+      const k = (t - b[0]) / (c[0] - b[0]);
+      return [1, 2, 3].map(j => cr(a[j], b[j], c[j], d[j], k));
+    }
+    let camRunning = true, lastW = 0, lastH = 0;
+    function moveCam() {
+      if (!camRunning) return;
+      const W = intro.clientWidth, H = intro.clientHeight;
+      const vw = v.videoWidth || 1080, vh = v.videoHeight || 1918;
+      // El vídeo ocupa su fotograma entero (más grande que la pantalla) para
+      // poder mover la cámara por todo él, también en vertical en ordenador
+      const sc = Math.max(W / vw, H / vh), dw = vw * sc, dh = vh * sc;
+      if (W !== lastW || H !== lastH) {
+        v.style.width = dw + 'px'; v.style.height = dh + 'px';
+        lastW = W; lastH = H;
+      }
+      const ox = (W - dw) * 0.5, oy = (H - dh) * 0.35; // encuadre de partida
+      let [u, w, z] = sampleCam(v.currentTime);
+      // En pantallas horizontales el vídeo vertical ya sale ampliado: menos zoom
+      if (W > H) z = 1 + (z - 1) * 0.5;
+      // Su cabeza, sin zoom, estaría aquí; la llevamos hacia el centro
+      const px = ox + u * dw, py = oy + w * dh;
+      let tx = px + (W / 2 - px) * FOLLOW - z * u * dw;
+      let ty = py + (H / 2 - py) * FOLLOW - z * w * dh;
+      // Sin dejar ver bordes vacíos
+      tx = Math.min(0, Math.max(W - z * dw, tx));
+      ty = Math.min(0, Math.max(H - z * dh, ty));
+      v.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) scale(${z.toFixed(4)})`;
+      requestAnimationFrame(moveCam);
+    }
+    requestAnimationFrame(moveCam);
     v.addEventListener('timeupdate', () => { if (v.currentTime >= REVEAL_AT) closeIntro(); });
     v.addEventListener('ended', closeIntro);
     v.addEventListener('error', closeIntro);
