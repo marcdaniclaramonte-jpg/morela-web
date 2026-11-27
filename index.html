@@ -932,7 +932,8 @@
       background-image:
         radial-gradient(ellipse 95% 60% at 50% -6%, rgba(201, 169, 110, 0.14), transparent 62%),
         linear-gradient(168deg, var(--cream) 0%, #EEE5D9 100%);
-      padding: 8rem 4rem 5rem;
+      --cpt: 8rem; --cpx: 4rem; /* padding arriba / lados (lo usa .contact-hero) */
+      padding: var(--cpt) var(--cpx) 5rem;
       text-align: center;
     }
     /* Textura de grano fino sobre el fondo claro */
@@ -947,6 +948,32 @@
       mix-blend-mode: multiply;
       pointer-events: none;
     }
+    /* Bloque superior de Contacto con la foto de recepción difuminada detrás */
+    .contact-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: calc(-1 * var(--cpt)) calc(-1 * var(--cpx)) 4rem;
+      padding: var(--cpt) var(--cpx) calc(var(--cpt) * 0.75);
+    }
+    .contact-hero::before { /* foto (ya difuminada en el archivo) */
+      content: '';
+      position: absolute;
+      inset: -20px;
+      z-index: -2;
+      background: url("recepcion-ipad-difuminada.jpg") 50% 62% / cover no-repeat;
+    }
+    .contact-hero::after { /* velo crema para que se lean las letras */
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 60% 70% at 50% 50%, rgba(250,248,245,0.80) 0%, rgba(250,248,245,0.50) 100%);
+    }
+    .contact-hero .contact-sub { color: #5E5A54; }
+    .contact-hero .contact-eyebrow { color: #A87E3C; font-weight: 400; }
+    .contact-hero .contact-title .accent { color: #B8925A; }
     .contact-eyebrow {
       font-size: 0.68rem;
       letter-spacing: 0.35em;
@@ -1320,7 +1347,7 @@
     @media (max-width: 1024px) {
       section { padding: 5rem 2.5rem; }
       #about { padding: 5rem 2.5rem; }
-      #contact { padding: 6rem 2.5rem 4rem; }
+      #contact { --cpt: 6rem; --cpx: 2.5rem; padding: 6rem 2.5rem 4rem; }
       nav { padding: 1.5rem 2.5rem; }
       nav.scrolled { padding: 1rem 2.5rem; }
       .acc-header { padding: 1.3rem 1.5rem; }
@@ -1358,7 +1385,7 @@
       section { padding: 4rem 1.5rem; }
       #about { padding: 4rem 1.5rem; }
       #reviews { padding: 4.5rem 0; }
-      #contact { padding: 5rem 1.5rem 3rem; }
+      #contact { --cpt: 5rem; --cpx: 1.5rem; padding: 5rem 1.5rem 3rem; }
 
       /* Stats → 2×2 grid */
       #stats {
@@ -1425,7 +1452,7 @@
       section { padding: 3.5rem 1.3rem; }
       #about { padding: 3.5rem 1.3rem; }
       #reviews { padding: 3.5rem 0; }
-      #contact { padding: 4rem 1.3rem 2.5rem; }
+      #contact { --cpt: 4rem; --cpx: 1.3rem; padding: 4rem 1.3rem 2.5rem; }
 
       /* Stats */
       .stat-item { padding: 1.8rem 0.8rem; }
@@ -1467,7 +1494,7 @@
       .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.12em; }
       section { padding: 3rem 1.1rem; }
       #about { padding: 3rem 1.1rem; }
-      #contact { padding: 3.5rem 1.1rem 2rem; }
+      #contact { --cpt: 3.5rem; --cpx: 1.1rem; padding: 3.5rem 1.1rem 2rem; }
       .stat-item { padding: 1.5rem 0.6rem; }
       .stat-number { font-size: 2rem; }
       .about-values { gap: 0.4rem; }
@@ -2134,6 +2161,7 @@
 
 <!-- CONTACT / FOOTER -->
 <section id="contact" role="region">
+  <div class="contact-hero">
   <span class="contact-eyebrow reveal">Contacto</span>
   <h2 class="contact-title reveal">Tu primera consulta<br><span class="accent">es gratuita</span></h2>
   <p class="contact-sub reveal">Ven a conocernos. Estudiamos tu caso y diseñamos un plan a tu medida, sin compromiso.</p>
@@ -2143,6 +2171,7 @@
       Reservar por WhatsApp
     </a>
   </div>
+  </div><!-- /.contact-hero -->
 
   <div class="contact-info reveal">
     <div class="contact-info-item">
