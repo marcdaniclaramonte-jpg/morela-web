@@ -775,51 +775,6 @@
     }
     .btn-service:hover { letter-spacing: 0.25em; }
 
-    /* ===================== GALLERY ===================== */
-    #gallery { background: var(--rose); }
-    .gallery-header { max-width: 1200px; margin: 0 auto 3rem; }
-    .masonry-grid {
-      column-count: 3;
-      column-gap: 1.2rem;
-      max-width: 1200px;
-      margin: 0 auto 3rem;
-    }
-    .masonry-item {
-      break-inside: avoid;
-      margin-bottom: 1.2rem;
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-    }
-    .masonry-item img {
-      width: 100%;
-      display: block;
-      height: auto;
-      transition: transform 0.6s ease;
-    }
-    .masonry-item:hover img { transform: scale(1.05); }
-    .masonry-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(26,26,24,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .masonry-item:hover .masonry-overlay { opacity: 1; }
-    .masonry-overlay span {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      color: var(--cream);
-      border-bottom: 1px solid var(--gold);
-      padding-bottom: 3px;
-    }
-    .gallery-cta { text-align: center; }
-
     /* ===================== REVIEWS MARQUEE ===================== */
     #reviews {
       background: var(--cream);
@@ -1359,7 +1314,6 @@
       nav { padding: 1.5rem 2.5rem; }
       nav.scrolled { padding: 1rem 2.5rem; }
       .acc-header { padding: 1.3rem 1.5rem; }
-      .masonry-grid { column-count: 2; }
       .about-grid { gap: 3rem; }
       .about-image { aspect-ratio: 1/1; }
       .contact-info { gap: 2.5rem; }
@@ -1426,10 +1380,6 @@
       .subservices-panel { padding: 1.4rem 1.2rem 1.6rem; }
       .sub-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 
-      /* Galería → 2 columnas */
-      .masonry-grid { column-count: 2; column-gap: 0.8rem; }
-      .masonry-item { margin-bottom: 0.8rem; }
-
       /* About → 1 columna */
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .about-image { aspect-ratio: 4/3; }
@@ -1476,8 +1426,6 @@
       .service-name { font-size: 1.2rem; }
       .service-desc { font-size: 0.8rem; }
 
-      /* Galería: 1 columna */
-      .masonry-grid { column-count: 1; }
       .photo-placeholder { min-height: 200px; }
 
       /* About */
@@ -1614,7 +1562,6 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#services">Servicios</a></li>
-    <li><a href="#gallery">Galería</a></li>
     <li><a href="#reviews">Reseñas</a></li>
     <li><a href="/blog/">Blog</a></li>
     <li><a href="#contact">Contacto</a></li>
@@ -1988,56 +1935,6 @@
   </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery" role="region">
-  <div class="gallery-header reveal">
-    <span class="section-label">Portfolio</span>
-    <h2 class="section-title">El trabajo <span class="accent">habla por sí solo</span></h2>
-    <div class="gold-line"></div>
-  </div>
-  <div class="masonry-grid reveal">
-    <div class="masonry-item">
-      <img src="fotopestanas.jpeg" alt="Extensiones de pestañas realizadas en MORELA clínica estética en Vila-real" loading="lazy" width="688" height="1416">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Extensiones de pestañas</span>
-      </a>
-    </div>
-    <div class="masonry-item">
-      <img src="cejaschica.jpeg" alt="Resultado de micropigmentación de cejas antes y después en Vila-real" loading="lazy" width="800" height="800">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Micropigmentación de cejas</span>
-      </a>
-    </div>
-    <div class="masonry-item">
-      <img src="fotolabios.jpeg" alt="Micropigmentación de labios con acabado natural en MORELA Vila-real" loading="lazy" width="800" height="1000">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Micropigmentación de labios</span>
-      </a>
-    </div>
-    <div class="masonry-item">
-      <img src="fotopeeling.jpeg" alt="Tratamiento facial con peeling y limpieza profunda en MORELA Vila-real" loading="lazy" width="800" height="1000">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Tratamientos faciales</span>
-      </a>
-    </div>
-    <div class="masonry-item">
-      <img src="antesydespueschica.jpeg" alt="Resultado de diseño de cejas y pestañas en clienta de MORELA Vila-real" loading="lazy" width="640" height="800">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Cejas y pestañas</span>
-      </a>
-    </div>
-    <div class="masonry-item">
-      <img src="antesydespueschico.jpeg" alt="Diseño y perfilado de cejas masculinas antes y después en Vila-real" loading="lazy" width="800" height="1000">
-      <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="masonry-overlay">
-        <span>Diseño de cejas</span>
-      </a>
-    </div>
-  </div>
-  <div class="gallery-cta reveal">
-    <a href="https://www.instagram.com/paulabeautymorela" target="_blank" class="btn-outline">Ver galería completa en Instagram</a>
-  </div>
-</section>
-
 <!-- REVIEWS MARQUEE -->
 <section id="reviews" role="region">
   <div class="reviews-header reveal">
@@ -2348,7 +2245,7 @@
       requestAnimationFrame(animateRing);
     })();
 
-    document.querySelectorAll('a, button, .service-card, .masonry-item, .review-pill').forEach(el => {
+    document.querySelectorAll('a, button, .service-card, .review-pill').forEach(el => {
       el.addEventListener('mouseenter', () => { cursor.classList.add('expanded'); cursorRing.classList.add('expanded'); });
       el.addEventListener('mouseleave', () => { cursor.classList.remove('expanded'); cursorRing.classList.remove('expanded'); });
     });
