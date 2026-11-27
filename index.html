@@ -1532,7 +1532,7 @@
       z-index: 9997; /* por encima de todo menos del cursor personalizado */
       background: #1A1A18 url("video-intro-poster.jpg") 50% 35% / cover no-repeat;
       overflow: hidden;
-      transition: opacity 1.2s ease, visibility 1.2s ease;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
     }
     #intro video {
       position: absolute;
@@ -2454,7 +2454,7 @@
     const intro = document.getElementById('intro');
     if (!intro) return; // ya vista en esta visita
     const v = document.getElementById('introVideo');
-    const REVEAL_AT = 2.1; // segundo en que la clienta entra por la puerta
+    const REVEAL_AT = 0.7; // segundo en que la clienta entra por la puerta (intro ~1 s)
     let closed = false;
     function closeIntro() {
       if (closed) return;
@@ -2463,7 +2463,7 @@
       intro.classList.add('intro-out');
       document.documentElement.classList.remove('intro-on');
       window.morelaIntro.finish();
-      setTimeout(() => { camRunning = false; v.pause(); intro.remove(); }, 1300);
+      setTimeout(() => { camRunning = false; v.pause(); intro.remove(); }, 500);
     }
 
     /* Cámara que sigue a la clienta.
@@ -2471,18 +2471,13 @@
        fotograma), zoom]. Entra por la izquierda, pasa por delante de Paula y
        sale por la puerta a la derecha. */
     const CAM = [
-      [0.00, 0.50, 0.42, 1.00],
-      [0.33, 0.46, 0.40, 1.08],
-      [0.56, 0.36, 0.36, 1.18],
-      [0.78, 0.32, 0.37, 1.26],
-      [1.00, 0.40, 0.38, 1.32],
-      [1.22, 0.46, 0.40, 1.36],
-      [1.44, 0.50, 0.40, 1.39],
-      [1.67, 0.63, 0.42, 1.42],
-      [1.89, 0.79, 0.45, 1.47],
-      [2.11, 0.92, 0.50, 1.53],
-      [2.33, 1.00, 0.55, 1.62],
-      [3.00, 1.00, 0.56, 1.75]
+      [0.00, 0.40, 0.38, 1.10],
+      [0.20, 0.46, 0.40, 1.20],
+      [0.40, 0.50, 0.40, 1.28],
+      [0.60, 0.63, 0.42, 1.35],
+      [0.80, 0.79, 0.45, 1.42],
+      [1.00, 0.92, 0.50, 1.50],
+      [1.13, 1.00, 0.55, 1.56]
     ];
     const FOLLOW = 0.75; // cuánto la llevamos hacia el centro de la pantalla (0–1)
     /* El vídeo da su tiempo "a saltos" (por fotograma); lo suavizamos con el
@@ -2542,10 +2537,10 @@
     // Si el móvil no deja reproducir (modo ahorro, etc.), se entra directo
     const p = v.play();
     if (p && p.catch) p.catch(closeIntro);
-    // Red lenta: si en 3 s no ha arrancado, no hacemos esperar
-    setTimeout(() => { if (v.currentTime === 0) closeIntro(); }, 3000);
+    // Red lenta: si en 1,5 s no ha arrancado, no hacemos esperar
+    setTimeout(() => { if (v.currentTime === 0) closeIntro(); }, 1500);
     // Tope absoluto
-    setTimeout(closeIntro, 9000);
+    setTimeout(closeIntro, 4000);
   })();
 
   /* ---- VÍDEO HERO: progreso de scroll + pausar cuando está tapado ---- */
